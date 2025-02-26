@@ -23,6 +23,7 @@ zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/m
 ```
 
 <br>
+
 Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%201/main.cpp) podaje następujące wyniki:
 
 ```
