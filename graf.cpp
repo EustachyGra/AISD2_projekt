@@ -5,12 +5,13 @@ struct kraw{
     int v1;
     int v2;
     int w;
-    
-    edge(int t1, int t2, int tw=1)
+    bool di;
+    edge(int t1, int t2, int tw=1, bool td=false)
     {
-        v1=t1;
-        v2=t2;
-        w=tw;
+        v1=t1; //wierzcholek 1
+        v2=t2; // wierzcholek 2
+        w=tw;  // waga
+        di = td // czy skierowane (jesli tak to idzie z v1 do v2)
     }
 
 };
@@ -18,5 +19,5 @@ struct kraw{
 
 int main()
 {
-    
+
 }
