@@ -32,8 +32,19 @@ void printAdjacencyList(vector<vector<pair<int, int>>> &adjList)
     cout << endl;
 }
 
-void printTwoArrays(vector<int> &indexArray, vector<pair<int, int>> &neighborArray)
+void printTwoArrays(vector<int> &indexArray, vector<pair<int, int>> &neighborArray, vector<vector<pair<int, int>>> &adjList)
 {
+    int c = 0;
+    for (int i = 0; i < adjList.size(); i++)
+    {
+        indexArray[i] = c;
+        for (auto &p : adjList[i])
+        {
+            neighborArray.push_back(p);
+            c++;
+        }
+    }
+
     cout << "Dwie tablice:" << endl;
     cout << "Indeksy: ";
     for (int val : indexArray)
@@ -73,20 +84,9 @@ int main()
         adjacencyList[u].push_back({v, weight});
     }
 
-    int c = 0;
-    for (int i = 0; i < vertices; i++)
-    {
-        indexArray[i] = c;
-        for (auto &p : adjacencyList[i])
-        {
-            neighborArray.push_back(p);
-            c++;
-        }
-    }
-
     printAdjacencyMatrix(adjacencyMatrix);
     printAdjacencyList(adjacencyList);
-    printTwoArrays(indexArray, neighborArray);
+    printTwoArrays(indexArray, neighborArray, adjacencyList);
 
     return 0;
 }
