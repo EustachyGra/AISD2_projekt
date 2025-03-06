@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <vector>
@@ -21,7 +20,7 @@ void printAdjacencyMatrix(vector<vector<int>> &adjMatrix)
 void printAdjacencyList(vector<vector<pair<int, int>>> &adjList)
 {
     cout << "Lista sasiadow:" << endl;
-    for (int i = 0; i < adjList.size(); i++)
+    for (size_t i = 0; i < adjList.size(); i++)
     {
         cout << i << ": ";
         for (auto &neighbor : adjList[i])
@@ -32,10 +31,11 @@ void printAdjacencyList(vector<vector<pair<int, int>>> &adjList)
     cout << endl;
 }
 
-void printTwoArrays(vector<int> &indexArray, vector<pair<int, int>> &neighborArray, vector<vector<pair<int, int>>> &adjList)
+void printTwoArrays(vector<int> &indexArray, vector<pair<int, int>> &neighborArray,
+                    vector<vector<pair<int, int>>> &adjList)
 {
     int c = 0;
-    for (int i = 0; i < adjList.size(); i++)
+    for (size_t i = 0; i < adjList.size(); i++)
     {
         indexArray[i] = c;
         for (auto &p : adjList[i])
@@ -47,7 +47,7 @@ void printTwoArrays(vector<int> &indexArray, vector<pair<int, int>> &neighborArr
 
     cout << "Dwie tablice:" << endl;
     cout << "Indeksy: ";
-    for (int val : indexArray)
+    for (auto val : indexArray)
         cout << val << " ";
 
     cout << endl;
@@ -61,7 +61,7 @@ void printTwoArrays(vector<int> &indexArray, vector<pair<int, int>> &neighborArr
 
 int main()
 {
-    int vertices, edges;
+    size_t vertices, edges;
     cin >> vertices >> edges;
 
     // Metoda macierzy sąsiedztwa
@@ -74,14 +74,14 @@ int main()
     vector<int> indexArray(vertices, 0);  // Indeksy
     vector<pair<int, int>> neighborArray; // Sąsiedzi (para: sąsiad, waga)
 
-    int u, v, weight;
-    for (int i = 0; i < edges; i++)
+    size_t u, v, weight;
+    for (size_t i = 0; i < edges; i++)
     {
         cin >> u >> v >> weight;
 
-        adjacencyMatrix[u][v] = weight;
+        adjacencyMatrix[u][v] = (int)weight;
 
-        adjacencyList[u].push_back({v, weight});
+        adjacencyList[u].push_back({(int)v, (int)weight});
     }
 
     printAdjacencyMatrix(adjacencyMatrix);
