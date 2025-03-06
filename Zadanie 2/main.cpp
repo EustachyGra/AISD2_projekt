@@ -1,25 +1,9 @@
 #include <algorithm>
 #include <climits>
-#include <iomanip>
 #include <iostream>
 #include <vector>
 
 using namespace std;
-
-void printAdjacencyMatrix(vector<vector<int>> &adjMatrix)
-{
-    for (auto &row : adjMatrix)
-    {
-        for (int val : row)
-            if (val != INT_MAX)
-                cout << setw(3) << val << " ";
-            else
-                cout << setw(3) << "inf" << " ";
-
-        cout << endl;
-    }
-    cout << endl;
-}
 
 void floydWarshall(vector<vector<int>> &adjMatrix, vector<vector<int>> &optDecision)
 {
@@ -81,21 +65,18 @@ int main()
                 optimalDecision[i][j] = (int)i;
         }
 
-    cout << "Dane wejsciowe:" << endl;
-    printAdjacencyMatrix(adjacencyMatrix);
-
     floydWarshall(adjacencyMatrix, optimalDecision);
 
-    cout << "Algorytm Floyda-Warshalla:" << endl;
-    printAdjacencyMatrix(adjacencyMatrix);
-    printAdjacencyMatrix(optimalDecision);
-
+    size_t k;
     cin >> v >> u;
+    cin >> k;
+    cout << endl;
+    cout << "Najkrotsza droga miedzy wierzcholkami " << v << ", " << u << ":" << endl;
     cout << adjacencyMatrix[v - 1][u - 1] << " ";
     printShortestPath(optimalDecision, v - 1, u - 1);
-    cin >> v;
-    cout << adjacencyMatrix[v - 1][v - 1] << " " << v << " ";
-    printShortestPath(optimalDecision, v - 1, v - 1);
+    cout << "Najkrotszy cykl zawierajacy wierzcholek " << v << ":" << endl;
+    cout << adjacencyMatrix[k - 1][k - 1] << " " << v << " ";
+    printShortestPath(optimalDecision, k - 1, k - 1);
 
     return 0;
 }
