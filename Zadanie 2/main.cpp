@@ -1,8 +1,9 @@
 #include <algorithm>
 #include <climits>
+#include <iomanip>
 #include <iostream>
 #include <vector>
-#include<iomanip>
+
 using namespace std;
 
 void floydWarshall(vector<vector<int>> &adjMatrix, vector<vector<int>> &optDecision)
@@ -22,7 +23,7 @@ void floydWarshall(vector<vector<int>> &adjMatrix, vector<vector<int>> &optDecis
 }
 void printMatrix(vector<vector<int>> &adjMatrix)
 {
-   // cout << "Macierz odleglosci:" << endl;
+    // cout << "Macierz odleglosci:" << endl;
     for (auto &row : adjMatrix)
     {
         for (int val : row)
@@ -37,13 +38,13 @@ void printShortestPath(vector<vector<int>> &optDecision, int v, int u)
 {
     int v2 = u;
     vector<int> path;
-    while (optDecision[v][v2] != u && optDecision[v][v2]!=v)
+    while (optDecision[v][v2] != u && optDecision[v][v2] != v)
     {
         path.push_back(v2);
         v2 = optDecision[v][v2];
     }
     path.push_back(v2);
-    cout<< v+1<<" ";
+    cout << v + 1 << " ";
     reverse(path.begin(), path.end());
     for (auto &i : path)
         cout << i + 1 << " ";
@@ -78,16 +79,16 @@ int main()
         }
 
     floydWarshall(distanceMatrix, optimalDecision);
-    cout<<endl;
+    cout << endl;
     printMatrix(distanceMatrix);
     size_t k;
     cin >> v >> u;
     cin >> k;
     cout << endl;
-    //cout << "Najkrotsza droga miedzy wierzcholkami " << v << ", " << u << ":" << endl;
+    // cout << "Najkrotsza droga miedzy wierzcholkami " << v << ", " << u << ":" << endl;
     cout << distanceMatrix[v - 1][u - 1] << " ";
     printShortestPath(optimalDecision, v - 1, u - 1);
-    //cout << "Najkrotszy cykl zawierajacy wierzcholek " << k << ":" << endl;
+    // cout << "Najkrotszy cykl zawierajacy wierzcholek " << k << ":" << endl;
     cout << distanceMatrix[k - 1][k - 1] << " ";
     printShortestPath(optimalDecision, k - 1, k - 1);
 
