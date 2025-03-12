@@ -44,9 +44,10 @@ bool BFS(vector<vector<int>> &adjMatrix, vector<int> &parent, size_t s, size_t t
     return false;
 }
 
-int edmondsKarp(vector<vector<int>> adjMatrix, size_t s, size_t t)
+int edmondsKarp(vector<vector<int>> adjMatrix)
 {
     vector<int> parent(adjMatrix[0].size());
+    size_t s = 0, t = adjMatrix[0].size() - 1;
     int maxFlow = 0;
     while (BFS(adjMatrix, parent, s, t))
     {
@@ -64,7 +65,7 @@ int edmondsKarp(vector<vector<int>> adjMatrix, size_t s, size_t t)
         }
         maxFlow += pathFlow;
     }
-    return maxFlow
+    return maxFlow;
 }
 
 int main()
@@ -81,6 +82,8 @@ int main()
         cin >> u >> v >> weight;
         adjacencyMatrix[u - 1][v - 1] = (int)weight;
     }
-
+    
+    cout << edmondsKarp(adjacencyMatrix) << endl;
+    
     return 0;
 }
