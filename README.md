@@ -6,6 +6,7 @@
 
 Dla przykładowego digrafu z wagami (numeracja od 0):
 ![](https://raw.githubusercontent.com/EustachyGra/AISD2_projekt/refs/heads/main/Zadanie%201/graf_test.jpg)
+
 zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%201/test.txt) będzie wyglądał następująco:
 ```
 7 10    // Ilość wierzchołków, ilość krawędzi
@@ -78,8 +79,9 @@ Najkrotszy cykl zawierajacy wierzcholek 2:
 ### [Zadanie 3](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%203) - Algorytmy Forda-Fulkersona i Edmondsa-Karpa
 Algorytm Forda-Fulkersona wykorzystuje w tej implementacji DFS (Depth-First Search) do przeglądania grafu, natomiast algorytm Edmondsa-Karpa jest często nazywany poprawką poprzedniego algorytmu i używa BFS (Breadth-First Search).
 
-Dla przykładowego digrafu z wagami (numeracja od 0):
-![](https://raw.githubusercontent.com/EustachyGra/AISD2_projekt/refs/heads/main/Zadanie%201/graf_test.jpg)
+Dla przykładowego digrafu z wagami (numeracja od 1):
+![](https://raw.githubusercontent.com/EustachyGra/AISD2_projekt/refs/heads/main/Zadanie%203/graf.jpg)
+
 zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/input.txt) będzie wyglądał następująco:
 
 ```
@@ -100,10 +102,10 @@ zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/m
 
 Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/main.cpp) podaje następujące wyniki:
 ```
-Najkrotsza droga miedzy wierzcholkami 2, 4:
-6 2 3 1 4 
-Najkrotszy cykl zawierajacy wierzcholek 2:
-8 2 3 1 4 2
+Algorytm Forda-Fulkersona:
+60
+Algorytm Edmondsa-Karpa:
+60
 ```
 
 ## <div align="center">Projekt</div>
