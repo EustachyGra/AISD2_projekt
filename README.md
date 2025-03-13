@@ -7,7 +7,6 @@
 Dla przykładowego digrafu z wagami (numeracja od 0):
 ![](https://raw.githubusercontent.com/EustachyGra/AISD2_projekt/refs/heads/main/Zadanie%201/graf_test.jpg)
 zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%201/test.txt) będzie wyglądał następująco:
-
 ```
 7 10    // Ilość wierzchołków, ilość krawędzi
 1 0 3   // Wierzchołek 1, wierzchołek 2, waga krawędzi
@@ -48,6 +47,8 @@ Dwie tablice:
 Indeksy: 0 2 3 5 5 8 9
 Sasiedzi: (1, 3) (4, 5) (0, 3) (1, 9) (5, 10) (3, 1) (2, 7) (5, 12) (2, 10) (5, 2)
 ```
+---
+<br>
 
 ### [Zadanie 2](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%202) - Algorytm Floyda-Warshalla
 Algorytm Floyda-Warshalla do obliczenia najkrótszych dróg między wierzchołkami w digrafie ważonym (numeracja od 1). Zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%202/input.txt) będzie wyglądał następująco:
@@ -71,6 +72,38 @@ Najkrotsza droga miedzy wierzcholkami 2, 4:
 Najkrotszy cykl zawierajacy wierzcholek 2:
 8 2 3 1 4 2
 ```
+---
+<br>
 
+### [Zadanie 3](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%203) - Algorytmy Forda-Fulkersona i Edmondsa-Karpa
+Algorytm Forda-Fulkersona wykorzystuje w tej implementacji DFS (Depth-First Search) do przeglądania grafu, natomiast algorytm Edmondsa-Karpa jest często nazywany poprawką poprzedniego algorytmu i używa BFS (Breadth-First Search).
+
+Dla przykładowego digrafu z wagami (numeracja od 0):
+![](https://raw.githubusercontent.com/EustachyGra/AISD2_projekt/refs/heads/main/Zadanie%201/graf_test.jpg)
+zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/input.txt) będzie wyglądał następująco:
+
+```
+7 11    // Ilość wierzchołków, ilość krawędzi
+1 2 20  // Wierzchołek 1, wierzchołek 2, waga krawędzi
+1 3 50
+3 2 10
+2 4 50
+4 6 80
+6 7 40
+4 7 40
+2 5 60
+5 4 10
+5 7 20
+3 5 30
+```
+<br>
+
+Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/main.cpp) podaje następujące wyniki:
+```
+Najkrotsza droga miedzy wierzcholkami 2, 4:
+6 2 3 1 4 
+Najkrotszy cykl zawierajacy wierzcholek 2:
+8 2 3 1 4 2
+```
 
 ## <div align="center">Projekt</div>
