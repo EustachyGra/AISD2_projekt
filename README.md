@@ -77,7 +77,7 @@ Najkrotszy cykl zawierajacy wierzcholek 2:
 <br>
 
 ### [Zadanie 3](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%203) - Algorytmy Forda-Fulkersona i Edmondsa-Karpa
-Algorytm Forda-Fulkersona wykorzystuje w tej implementacji DFS (Depth-First Search) do przeglądania grafu, natomiast algorytm Edmondsa-Karpa jest często nazywany poprawką poprzedniego algorytmu i używa BFS (Breadth-First Search).
+Algorytm Forda-Fulkersona wykorzystuje w tej implementacji DFS (Depth-First Search) do przeglądania grafu, natomiast algorytm Edmondsa-Karpa jest często nazywany poprawką poprzedniego algorytmu i używa BFS (Breadth-First Search). Symulowany przepływ ma miejsce od wierzchołka o najmniejszym indeksie do wierzchołka o największym indeksie.
 
 Dla przykładowego digrafu z wagami (numeracja od 1):
 ![](https://raw.githubusercontent.com/EustachyGra/AISD2_projekt/refs/heads/main/Zadanie%203/graf.jpg)
