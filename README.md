@@ -109,3 +109,5 @@ Algorytm Edmondsa-Karpa:
 ```
 
 ## <div align="center">Projekt</div>
+Szkic ekranu startowego
+![projekt](https://github.com/user-attachments/assets/612a03da-bd39-45fa-8906-d47230927e29)
