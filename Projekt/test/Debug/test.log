@@ -1,0 +1,540 @@
+﻿  Źródło.cpp
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(75,17): error C3615: Wynikiem funkcji constexpr „sf::operator +” nie może być wyrażenie stałe
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(77,16):
+      wystąpił błąd, ponieważ typ „const sf::+::<lambda_1>” nie jest typem literału
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(81,5):
+      typ „sf::+::<lambda_1>” nie jest literałem, ponieważ nie jest typem agregowanym, typem zamkniętym lub nie ma konstruktora constexpr, który nie jest konstruktorem kopiowania lub przenoszenia
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(91,17): error C3615: Wynikiem funkcji constexpr „sf::operator -” nie może być wyrażenie stałe
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(93,16):
+      wystąpił błąd, ponieważ typ „const sf::-::<lambda_1>” nie jest typem literału
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(97,5):
+      typ „sf::-::<lambda_1>” nie jest literałem, ponieważ nie jest typem agregowanym, typem zamkniętym lub nie ma konstruktora constexpr, który nie jest konstruktorem kopiowania lub przenoszenia
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(107,17): error C3615: Wynikiem funkcji constexpr „sf::operator *” nie może być wyrażenie stałe
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(109,16):
+      wystąpił błąd, ponieważ typ „const sf::*::<lambda_1>” nie jest typem literału
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(113,5):
+      typ „sf::*::<lambda_1>” nie jest literałem, ponieważ nie jest typem agregowanym, typem zamkniętym lub nie ma konstruktora constexpr, który nie jest konstruktorem kopiowania lub przenoszenia
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(146,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(147,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(148,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(149,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(150,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(151,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(152,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(153,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Color.inl(154,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\System\Angle.inl(272,31): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,34): error C2039: „optional”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\yvals.h(318,1):
+      zobacz deklarację „std”
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,34):
+      kontekst tworzenia wystąpienia szablonu (najpierw najstarszy) to
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(42,7):
+          podczas kompilowania szablonu klasy „sf::Rect”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,42): error C2143: błąd składniowy: brakuje „;” przed „<”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,34): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,34): error C2178: Element „sf::Rect<T>::optional” nie może być zadeklarowany ze specyfikatorem „constexpr”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,5): warning C4869: Element „nodiscard” można stosować tylko w przypadku klas, wyliczeń i funkcji
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,100): error C2238: nieoczekiwany(e) token(y) poprzedzający(e) ";"
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,16): error C2039: „optional”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\yvals.h(318,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,24): error C2988: nierozpoznana deklaracja/definicja szablonu
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,24): error C2143: błąd składniowy: brakuje „;” przed „<”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,16): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,24): error C2059: błąd składniowy: „<”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,30): error C2065: "T": niezadeklarowany identyfikator
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,25): error C2923: „sf::Rect”: „T” nie jest prawidłowym argumentem typu szablon dla parametru „T”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,30):
+      zobacz deklarację „T”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,39): error C2065: "T": niezadeklarowany identyfikator
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,34): error C2923: „sf::Rect”: „T” nie jest prawidłowym argumentem typu szablon dla parametru „T”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,39):
+      zobacz deklarację „T”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,71): error C2065: "T": niezadeklarowany identyfikator
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,66): error C2923: „sf::Rect”: „T” nie jest prawidłowym argumentem typu szablon dla parametru „T”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(71,71):
+      zobacz deklarację „T”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(72,1): error C2143: błąd składniowy: brakuje „;” przed „{”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.inl(72,1): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(52,35): error C3615: Wynikiem funkcji constexpr „sf::Transform::getMatrix” nie może być wyrażenie stałe
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(54,25):
+      niepowodzenie spowodowane przez wywołanie niezdefiniowanej funkcji lub niezadeklarowanej jako „constexpr”
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(54,25):
+      zobacz użycie elementu „std::array<float,16>::data”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,34): error C2178: Element „sf::Rect<float>::optional” nie może być zadeklarowany ze specyfikatorem „constexpr”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(101,31): error C2514: „std::array”: nie można skonstruować szablonu klasy
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(406,7):
+      zobacz deklarację „std::array”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(107,21):
+      podczas próby dopasowania listy argumentów "(const std::array, int)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(108,21):
+      podczas próby dopasowania listy argumentów "(const std::array, int)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(110,40): error C2662: "std::array<_Ty,_Size>::size_type std::array<_Ty,_Size>::size(void) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(110,33):
+      Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(110,33):
+      Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(505,59):
+      zobacz deklarację „std::array<_Ty,_Size>::size”
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(110,40):
+      podczas próby dopasowania listy argumentów "()"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,18):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(113,49):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,18):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(114,49):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,18):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(116,49):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,18):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "const std::array" (lub nie istnieje akceptowalna konwersja)
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(541,42):
+      może to być „const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const”
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+          "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const": nie można konwertować wskaźnika "this" z "const std::array" do "const std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "const std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(533,39):
+      lub       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+          "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept": nie można konwertować wskaźnika "this" z "const std::array" do "std::array<_Ty,_Size> &"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+              Przyczyna: nie można skonwertować z "const std::array" na "std::array<_Ty,_Size>"
+              C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+              Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(117,49):
+      podczas próby dopasowania listy argumentów "(const std::array, size_t)"
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(98,32): error C3615: Wynikiem funkcji constexpr „sf::Transform::transformRect” nie może być wyrażenie stałe
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(101,22):
+      wystąpił błąd, ponieważ typ „const std::array” nie jest typem literału
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\array(406,7):
+      typ „std::array” nie jest literałem, ponieważ nie jest typem agregowanym, typem zamkniętym lub nie ma konstruktora constexpr, który nie jest konstruktorem kopiowania lub przenoszenia
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(110,39):
+      niepowodzenie spowodowane przez wywołanie niezdefiniowanej funkcji lub niezadeklarowanej jako „constexpr”
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(110,39):
+      zobacz użycie elementu „<declval>”
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(98,32):
+      niepowodzenie zostało spowodowane poprzez osiągnięcie przez kontrolę końca funkcji constexpr
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Transform.inl(234,39): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Rect.hpp(98,34): error C2178: Element „sf::Rect<int>::optional” nie może być zadeklarowany ze specyfikatorem „constexpr”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(114,33): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(114,45): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\memory(31,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(114,22): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(114,49): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(137,24): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(137,36): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\memory(31,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(137,13): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(137,40): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(137,5): error C2535: „sf::Texture::Texture(const int)”: Funkcja składowa już zdefiniowana lub zadeklarowana
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(114,5):
+      zobacz deklarację „sf::Texture::Texture”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(304,48): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(304,60): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\memory(31,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(304,37): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(304,64): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(304,117): error C2143: błąd składniowy: brakuje „)” przed „{”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Texture.hpp(304,119): error C2059: błąd składniowy: „)”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(103,30): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(103,42): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(103,19): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(103,46): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(168,48): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(168,60): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(168,37): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Font.hpp(168,64): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string_view(12): warning STL4038: The contents of <string_view> are available only with C++17 or later.
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(103,31): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(103,43): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(103,20): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(103,47): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(175,48): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(175,60): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(175,37): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(175,64): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(227,46): error C3083: "filesystem" : symbol po lewej stronie "::" musi być typem
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(227,58): error C2039: „path”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(227,35): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(227,62): error C2143: błąd składniowy: brakuje „,” przed „&”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(245,24): error C2039: „optional”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(245,32): error C2143: błąd składniowy: brakuje „;” przed „<”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(245,24): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(245,5): warning C4869: Element „nodiscard” można stosować tylko w przypadku klas, wyliczeń i funkcji
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(245,78): error C2039: „string_view”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\unordered_map(23,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Graphics\Image.hpp(245,103): error C2238: nieoczekiwany(e) token(y) poprzedzający(e) ";"
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\System\Time.inl(282,29): error C7525: wbudowane zmienne wymagają co najmniej elementu „/std:c++17”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Window\WindowBase.hpp(226,24): error C2039: „optional”: nie jest składową elementu „std”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\chrono(45,1):
+      zobacz deklarację „std”
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Window\WindowBase.hpp(226,32): error C2143: błąd składniowy: brakuje „;” przed „<”
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  
+C:\Users\kwiat\source\repos\test\include\SFML\Window\WindowBase.hpp(226,32): error C1003: Licznik błędów przekracza 100; zatrzymywanie kompilacji
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+  

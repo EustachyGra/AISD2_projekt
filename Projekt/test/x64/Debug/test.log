@@ -1,0 +1,13 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: Katalog pośredni (x64\Debug\) zawiera pliki udostępnione z innego projektu (test.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
+  Źródło.cpp
+C:\Users\kwiat\source\repos\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      zobacz deklarację „std::runtime_error”
+      C:\Users\kwiat\source\repos\Projekt\include\SFML\System\Exception.hpp(41,23):
+      zobacz deklarację „sf::Exception”
+  
+C:\Users\kwiat\source\repos\Projekt\test\Źródło.cpp(12,16): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\kwiat\source\repos\Projekt\test\Źródło.cpp(201,15): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\kwiat\source\repos\Projekt\test\Źródło.cpp(278,61): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+  test.vcxproj -> C:\Users\kwiat\source\repos\Projekt\x64\Debug\projekt.exe
