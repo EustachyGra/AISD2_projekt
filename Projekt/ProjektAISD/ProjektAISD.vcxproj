@@ -143,7 +143,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Źródło.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Functions.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Line.hpp" />
+    <ClInclude Include="Node.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
