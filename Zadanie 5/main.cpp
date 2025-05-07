@@ -138,7 +138,7 @@ private:
 public:
     RedBlackTree() : root(nullptr) {}
 
-    void insert(const int &data)
+    void insert(int &data)
     {
         Node *newNode = new Node(data);
         Node *parent = nullptr;
