@@ -107,6 +107,23 @@ Algorytm Forda-Fulkersona:
 Algorytm Edmondsa-Karpa:
 60
 ```
+<br>
+
+### [Zadanie 5](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%203) - Zrównoważone drzewa BST
+Dla n liczb stwórz drzewo czerwono-czarne i wypisz jego zawartość w porządku preorder. 
+
+Zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/input.txt) będzie wyglądał następująco:
+
+```
+7 // Ilość liczb do drzewa
+2 1 26 5 3 29 13  // Kolejne liczby
+```
+<br>
+
+Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/main.cpp) podaje następujące wyniki:
+```
+
+```
 
 ## <div align="center">Projekt</div>
 Szkic ekranu startowego
