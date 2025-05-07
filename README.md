@@ -112,7 +112,7 @@ Algorytm Edmondsa-Karpa:
 ### [Zadanie 5](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%203) - Zrównoważone drzewa BST
 Dla n liczb stwórz drzewo czerwono-czarne i wypisz jego zawartość w porządku preorder. 
 
-Zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/input.txt) będzie wyglądał następująco:
+Zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%205/input.txt) będzie wyglądał następująco:
 
 ```
 7 // Ilość liczb do drzewa
@@ -120,9 +120,9 @@ Zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/m
 ```
 <br>
 
-Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%203/main.cpp) podaje następujące wyniki:
+Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%205/main.cpp) podaje następujący wynik:
 ```
-
+2 1 5 3 26 13 29
 ```
 
 ## <div align="center">Projekt</div>
