@@ -107,6 +107,7 @@ Algorytm Forda-Fulkersona:
 Algorytm Edmondsa-Karpa:
 60
 ```
+---
 <br>
 
 ### [Zadanie 5](https://github.com/EustachyGra/AISD2_projekt/tree/main/Zadanie%203) - Zrównoważone drzewa BST
