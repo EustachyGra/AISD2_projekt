@@ -123,6 +123,7 @@ Zestaw [danych wejściowych](https://github.com/EustachyGra/AISD2_projekt/blob/m
 
 Program zawarty w [main.cpp](https://github.com/EustachyGra/AISD2_projekt/blob/main/Zadanie%205/main.cpp) podaje następujący wynik:
 ```
+Porzadek preorder BST:
 2 1 5 3 26 13 29
 ```
 
