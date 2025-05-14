@@ -8,12 +8,7 @@
 #include "Node.hpp"
 #include "Functions.hpp"
 class Game {
-    /*friend void draw(const std::vector<sf::RectangleShape*>& ui,
-        const std::vector<sf::RectangleShape*>& all,
-        sf::RenderWindow& window,
-        sf::View& view,
-        sf::View& uiView,
-        sf::RectangleShape* temp);*/
+
 public:
     Game(sf::RenderWindow& window);
     ~Game();
@@ -21,6 +16,8 @@ public:
 
     std::vector<Line> linie;
     std::vector<Node> farms;
+	sf::Texture bg_texture;
+	sf::RectangleShape background;
     std::vector<sf::RectangleShape*> all;
     std::vector<sf::RectangleShape*> ui;
 private:
@@ -35,9 +32,8 @@ private:
     sf::View view;
     sf::View uiView;
 
-    sf::Texture tx_farm, tx_tav;
+    sf::Texture tx_farm, tx_tav, tx_cross;
     std::shared_ptr<sf::Texture> tx_road;
-    sf::Image icon;
     sf::RectangleShape button, button2, button3;
 
     bool change = false;

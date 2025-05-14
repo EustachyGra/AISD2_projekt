@@ -4,8 +4,8 @@
 Node::Node(sf::Window& window)
 {
     this->setPosition({ float(sf::Mouse::getPosition(window).x), float(sf::Mouse::getPosition(window).y) });
-    this->setOrigin({ 25,25 });
-    this->setSize({ 50,50 });
+    this->setOrigin({ 40,40 });
+    this->setSize({ 80,80 });
     this->setFillColor(sf::Color::Yellow);
 }
 

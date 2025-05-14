@@ -5,31 +5,43 @@
 #include <cstdlib>
 
 Game::Game(sf::RenderWindow& window)
-    : window(window), view(window.getView()), uiView(window.getDefaultView()) {
+    : window(window){
+	view.setSize({ 1280, 720 });
+    uiView.setSize({ 1920, 1080 });
     srand(time(NULL));
 
-    if (!icon.loadFromFile("Textury/beer2.png") ||
-        !tx_farm.loadFromFile("Textury/farm_t2.png") ||
-        !tx_tav.loadFromFile("Textury/tav_t.png") ||
-        !(tx_road = std::make_shared<sf::Texture>())->loadFromFile("Textury/road.png")) {
+    if (!tx_farm.loadFromFile("Textury/farm_p3.png") ||
+        !tx_tav.loadFromFile("Textury/tavern_p3.png") ||
+        !(tx_road = std::make_shared<sf::Texture>())->loadFromFile("Textury/road.png")||
+        !tx_cross.loadFromFile("Textury/cross.png")) {
         window.close();
     }
-
-    window.setIcon(icon.getSize(), icon.getPixelsPtr());
+	if (!bg_texture.loadFromFile("Textury/grass3.png"))
+	{
+		std::cerr << "Error loading background texture" << std::endl;
+		window.close();
+	}
+	background.setSize({ 1920, 1080 });
+	background.setPosition(window.mapPixelToCoords({ 0, 0 }, uiView));
+	background.setOrigin({ 0, 0 });
+	background.setTexture(&bg_texture);
+	ui.push_back(&background);
+    //sf::View v;
+    view.setSize({ 1280, 720 });
 
     button.setSize({ 50, 50 });
     button.setFillColor(sf::Color::Red);
-    button.setPosition({ 0, 0 });
+    button.setPosition(window.mapPixelToCoords({ 0, 0 }, uiView));
     ui.push_back(&button);
 
     button2.setSize({ 50, 50 });
     button2.setFillColor(sf::Color::Blue);
-    button2.setPosition({ 50, 0 });
+    button2.setPosition(window.mapPixelToCoords({ 50, 0 }, uiView));
     ui.push_back(&button2);
 
     button3.setSize({ 50, 50 });
     button3.setFillColor(sf::Color::Magenta);
-    button3.setPosition({ 100, 0 });
+    button3.setPosition(window.mapPixelToCoords({ 100, 0 }, uiView));
     ui.push_back(&button3);
     std::cout << ui.size() << std::endl;
 	std::cout << ui.size() << std::endl;
@@ -82,21 +94,20 @@ void Game::render() {
 
     for (int i = 0; i < linie.size(); i++)
         all.push_back(&linie[i]);
-	for (int i = 2; i < farms.size(); i++)
+	for (int i = 0; i < farms.size(); i++)
 		all.push_back(&farms[i]);
 
-
+    
     draw(ui, all, window, view, uiView);
 }
 
 void Game::handleMouseInput() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-        sf::sleep(sf::milliseconds(150));
-
         if (button.getGlobalBounds().contains(MousePosView(window, uiView)))
         {
             change = !change;
-            sf::sleep(sf::milliseconds(200));
+            std::cout << "Change mode: " << std::endl;
+            sf::sleep(sf::milliseconds(250));
             return;
         }
         if (button2.getGlobalBounds().contains(MousePosView(window, uiView)))
@@ -110,7 +121,7 @@ void Game::handleMouseInput() {
             {
                 std::cout << "Building taverns" << std::endl;
             }
-            sf::sleep(sf::milliseconds(200));
+            sf::sleep(sf::milliseconds(250));
 
             return;
         }
@@ -130,7 +141,7 @@ void Game::handleMouseInput() {
 			//std::vector<std::vector<std::pair<size_t, size_t>>> adj3 = adjMatrixBoth(linie, farms); // macierz sasiedzztwa pojemnosci i kosztow
 			
 			printAdjMatrix(adj); // dziala tylko dla adjMatrixCap
-            sf::sleep(sf::milliseconds(200));
+            sf::sleep(sf::milliseconds(250));
 
             return;
         }
@@ -160,6 +171,7 @@ void Game::handleMouseInput() {
                 }
                 if (mem.i == -1) return;
                 Node crossroad(mem.pos);
+				crossroad.setTexture(&tx_cross);
                 farms.push_back(crossroad);
                 linia = Line(crossroad.getPosition(), tx_road);
                 linia.startNode = farms.size() - 1;
@@ -219,8 +231,10 @@ void Game::handleMouseInput() {
                 if (linia.freePlace)
                 {
 					Node tmp = Node(linia.getPosEnd());
+					tmp.setTexture(&tx_cross);
 					farms.push_back(tmp);
 					linia.ConnectToNode(farms, farms.size() - 1);
+
                 }
                 if (L2L)
                 {
@@ -232,15 +246,15 @@ void Game::handleMouseInput() {
                 }
                 if (linia.CollideWith != -1)
                 {
-                    splitLine(linia.getPosEnd(), linie[linia.CollideWith], linie, linia.CollideWith, farms);
+                    splitLine(linia.getPosEnd(), linie[linia.CollideWith], linie, linia.CollideWith, farms, tx_cross);
                     linia.endNode = farms.size() - 1;
                 }
                 // std::cout << "Setting line color to white." << std::endl; // Debugging line
 
                 linia.ConnectToNode(farms);
                 linia.setFillColor(sf::Color(255, 255, 255, 255));
-                linia.setOutlineColor(sf::Color::Black);
-                linia.setOutlineThickness(2);
+               /* linia.setOutlineColor(sf::Color::Black);
+                linia.setOutlineThickness(2);*/
                 linia.setCapacity();
                 linie.push_back(linia);
                 //   std::cout << "Capacity: " << linia.getCapacity() << std::endl;
@@ -294,6 +308,8 @@ void Game::handleMouseInput() {
             if(canPlace)
                 farms.push_back(farm);
         }
+        sf::sleep(sf::milliseconds(150));
+
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {

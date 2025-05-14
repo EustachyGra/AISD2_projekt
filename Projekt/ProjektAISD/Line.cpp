@@ -111,6 +111,6 @@ void Line::SetCost(size_t n_cost) { cost = n_cost; }
 void Line::LookGood()
 {
     this->setFillColor(sf::Color(255, 255, 255, 255));
-    this->setOutlineColor(sf::Color::Black);
-    this->setOutlineThickness(2);
+   // this->setOutlineColor(sf::Color::Black);
+   // this->setOutlineThickness(2);
 }

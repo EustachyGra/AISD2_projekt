@@ -1,27 +1,18 @@
-﻿  Functions.cpp
+﻿  Button.cpp
 C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
-  (kompilowanie pliku źródłowego „Functions.cpp”)
+  (kompilowanie pliku źródłowego „Button.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
       zobacz deklarację „std::runtime_error”
       C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
       zobacz deklarację „sf::Exception”
   
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Functions.cpp(13,16): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Functions.cpp(17,13): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Functions.cpp(54,33): warning C4244: "argument": konwersja z "float" do "size_t", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Functions.cpp(59,37): warning C4244: "argument": konwersja z "float" do "size_t", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Functions.cpp(70,34): warning C4244: "argument": konwersja z "float" do "size_t", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Functions.cpp(74,34): warning C4244: "argument": konwersja z "float" do "size_t", możliwa utrata danych
-  Game.cpp
+  Menu.cpp
 C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
-  (kompilowanie pliku źródłowego „Game.cpp”)
+  (kompilowanie pliku źródłowego „Menu.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
       zobacz deklarację „std::runtime_error”
       C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
       zobacz deklarację „sf::Exception”
   
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(9,15): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(173,63): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
-C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(231,67): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
   Generowanie kodu...
   ProjektAISD.vcxproj -> C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\x64\Debug\ProjektAISD.exe

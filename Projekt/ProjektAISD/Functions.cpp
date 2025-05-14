@@ -41,11 +41,12 @@ bool CursorNearLine(const Line& line, sf::Vector2f pos, std::vector<Node> nodes)
     return (dlLineFrontNew + dlLineBackNew < line.getSize().x + 5);
 }
 
-void splitLine(sf::Vector2f mid, Line ogLine, std::vector<Line>& linie, int i, std::vector<Node>& farms)
+void splitLine(sf::Vector2f mid, Line ogLine, std::vector<Line>& linie, int i, std::vector<Node>& farms, sf::Texture& tx)
 {
     Node crossroad({ 20, 20 });
     crossroad.setFillColor(sf::Color::White);
     crossroad.setOrigin({ 10, 10 });
+    crossroad.setTexture(&tx);
     crossroad.setPosition(closestPointOnLine(farms[ogLine.startNode].getPosition(), farms[ogLine.endNode].getPosition(), mid));
     farms.push_back(crossroad);
     mid = crossroad.getPosition();
@@ -80,6 +81,12 @@ void splitLine(Line ogLine, std::vector<Line>& linie, int nodeId, int lineId, st
 void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::RectangleShape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::RectangleShape* obj)
 {
     w.clear(sf::Color::White);
+    w.setView(uiView);
+    for (size_t i = 0; i < ui.size(); i++)
+    {
+        w.draw(*ui[i]);
+    }
+
     w.setView(view);
     for (size_t i = 0; i < all.size(); i++)
     {   
@@ -87,12 +94,7 @@ void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::RectangleShape*>
     }
     if (obj != nullptr)
         w.draw(*obj);
-    w.setView(uiView);
-    for (size_t i = 0; i < ui.size(); i++)
-    {
-        w.draw(*ui[i]);
-    }
-   
+    
     w.display();
 }
 
@@ -134,7 +136,7 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
     if(linia.startLine != -1)
 		if (linie[linia.startLine].startNode == linia.endNode || linie[linia.startLine].endNode == linia.endNode)
 			return true;
-    for (int i = 2; i < nodes.size(); i++)
+    for (int i = 0; i < nodes.size(); i++)
     {
         if (i == linia.startNode || i == linia.endNode) continue;
 		sf::Vector2f size = nodes[i].getSize();
@@ -194,7 +196,7 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
 
 bool checkIntersection(std::vector<Line>& linie, Node& node, std::vector<Node> nodes)
 {
-	for (int i = 2; i < nodes.size(); i++)
+	for (int i = 0; i < nodes.size(); i++)
 	{
 		if (node.getGlobalBounds().findIntersection(nodes[i].getGlobalBounds()))
 		{
