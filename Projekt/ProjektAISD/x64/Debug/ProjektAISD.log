@@ -1,9 +1,1 @@
-﻿  Game.cpp
-C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'Game.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-  ProjektAISD.vcxproj -> C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\x64\Debug\ProjektAISD.exe
+﻿  ProjektAISD.vcxproj -> C:\Users\gruby\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\x64\Debug\ProjektAISD.exe
