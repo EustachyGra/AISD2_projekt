@@ -13,7 +13,7 @@ private:
 	sf::Color green = sf::Color(0, 255, 0, 160);
 	sf::Color red = sf::Color(255, 0, 0, 160);
     size_t capacity;
-    size_t cost;
+    size_t lifeSpan;
     //sf::Text text;
 
 public:
@@ -40,8 +40,8 @@ public:
     void LookGood();
 	size_t getCapacity();
 	void setCapacity(size_t cap=0);
-    void SetCost(size_t cost);
-	size_t GetCost();
+    void SetLifeSpan(size_t n_lifeSpan);
+	size_t GetLifeSpan();
 };
 
 #endif // LINE_HPP

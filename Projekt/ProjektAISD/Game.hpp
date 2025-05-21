@@ -27,6 +27,7 @@ private:
 
     void handleMouseInput();
     void handleKeyboardInput();
+    void handleMouseWheelScroll(sf::Event::MouseWheelScrolled event);
 
     sf::RenderWindow& window;
     sf::View view;

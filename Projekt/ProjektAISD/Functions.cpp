@@ -10,11 +10,11 @@
 
 float dl(sf::Vector2f a, sf::Vector2f b)
 {
-    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+    return (float)sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
 float dl(float ax, float ay, float bx, float by)
 {
-	return sqrt(pow(ax - bx, 2) + pow(ay - by, 2));
+	return (float)sqrt(pow(ax - bx, 2) + pow(ay - by, 2));
 }
 sf::Vector2f closestPointOnLine(sf::Vector2f a, sf::Vector2f b, sf::Vector2f m)
 {
@@ -52,12 +52,12 @@ void splitLine(sf::Vector2f mid, Line ogLine, std::vector<Line>& linie, int i, s
     mid = crossroad.getPosition();
     Line linia1(ogLine);
     linia1.ConnectToNode(farms, farms.size() - 1, ogLine.startNode);
-	linia1.SetCost(ogLine.GetCost()*ceil((linia1.getSize().x/ogLine.getSize().x)));
+	linia1.SetLifeSpan(ogLine.GetLifeSpan());
 	linia1.setCapacity(ogLine.getCapacity());
 	linia1.LookGood();
     Line linia2(ogLine);
     linia2.ConnectToNode(farms, ogLine.endNode, farms.size() - 1);
-    linia2.SetCost(ogLine.GetCost() * ceil((linia2.getSize().x / ogLine.getSize().x)));
+    linia2.SetLifeSpan(ogLine.GetLifeSpan());
 	linia2.setCapacity(ogLine.getCapacity());
 	linia2.LookGood();
     linie.erase(linie.begin() + i);
@@ -68,11 +68,11 @@ void splitLine(Line ogLine, std::vector<Line>& linie, int nodeId, int lineId, st
 {
     Line linia1(ogLine);
     linia1.ConnectToNode(farms, nodeId, ogLine.startNode);
-	linia1.SetCost(ogLine.GetCost() * ceil((linia1.getSize().x / ogLine.getSize().x)));
+	linia1.SetLifeSpan(ogLine.GetLifeSpan());
     linia1.LookGood();
     Line linia2(ogLine);
     linia2.ConnectToNode(farms, ogLine.endNode, nodeId);
-	linia2.SetCost(ogLine.GetCost() * ceil((linia2.getSize().x / ogLine.getSize().x)));
+	linia2.SetLifeSpan(ogLine.GetLifeSpan());
     linia2.LookGood();
     linie.erase(linie.begin() + lineId);
     linie.push_back(linia1);
@@ -254,23 +254,18 @@ std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vec
     return CapMatrix;
 }
 
-std::vector<std::vector<size_t>> adjMatrixCost(std::vector<Line>& linie, std::vector<Node>& farms)
+std::vector<std::vector<size_t>> adjMatrixLifeSpan(std::vector<Line>& linie, size_t farms_size)
 {
-    std::vector<std::vector<size_t>> CostMatrix(farms.size());
-	for (int i = 0; i < farms.size(); i++)
-	{
-        CostMatrix[i].resize(farms.size(), 0);
-		if (farms[i].isFarm)
-			CostMatrix[0][i] = farms[i].capacity;
-		else if (farms[i].isTavern)
-			CostMatrix[i][1] = farms[i].capacity;
-	}
+    std::vector<std::vector<size_t>> LifeSpanMatrix(farms_size);
+    for (int i = 0;i < farms_size;i++)
+        LifeSpanMatrix[i].resize(farms_size, 0);
+
 	for (int i = 0; i < linie.size(); i++)
 	{
-        CostMatrix[linie[i].startNode][linie[i].endNode] = linie[i].GetCost();
-        CostMatrix[linie[i].endNode][linie[i].startNode] = linie[i].GetCost();
+        LifeSpanMatrix[linie[i].startNode][linie[i].endNode] = linie[i].GetLifeSpan();
+        LifeSpanMatrix[linie[i].endNode][linie[i].startNode] = linie[i].GetLifeSpan();
 	}
-	return CostMatrix;
+	return LifeSpanMatrix;
 }
 
 std::vector<std::vector<std::pair<size_t, size_t>>> adjMatrixBoth(std::vector<Line>& linie, std::vector<Node>& farms)
@@ -286,8 +281,8 @@ std::vector<std::vector<std::pair<size_t, size_t>>> adjMatrixBoth(std::vector<Li
 	}
 	for (int i = 0; i < linie.size(); i++)
 	{
-		adjMatrix[linie[i].startNode][linie[i].endNode] = { linie[i].getCapacity(), linie[i].GetCost() };
-		adjMatrix[linie[i].endNode][linie[i].startNode] = { linie[i].getCapacity(), linie[i].GetCost() };
+		adjMatrix[linie[i].startNode][linie[i].endNode] = { linie[i].getCapacity(), linie[i].GetLifeSpan() };
+		adjMatrix[linie[i].endNode][linie[i].startNode] = { linie[i].getCapacity(), linie[i].GetLifeSpan() };
 	}
     return adjMatrix;
 }

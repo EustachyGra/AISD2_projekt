@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Functions.hpp"
+#include "Algorithms.hpp"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -8,7 +9,7 @@ Game::Game(sf::RenderWindow& window)
     : window(window){
 	view.setSize({ 1280, 720 });
     uiView.setSize({ 1920, 1080 });
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
 
     if (!tx_farm.loadFromFile("Textury/farm_p3.png") ||
         !tx_tav.loadFromFile("Textury/tavern_p3.png") ||
@@ -136,11 +137,18 @@ void Game::handleMouseInput() {
 			// jesli farm[i] nie jest zadna z tych to po prostu jest i jest zalezna od linii ktora z niej wychodza
 
 			std::vector<std::vector<size_t>> adj = adjMatrixCap(linie, farms);
+            std::vector<std::vector<size_t>> lfspn = adjMatrixLifeSpan(linie, farms.size());
             //te nizej w razie potrzeby 
 			//std::vector<std::vector<size_t>> adj2 = adjMatrixCost(linie, farms); // macierz sasiedzztwa kosztow
 			//std::vector<std::vector<std::pair<size_t, size_t>>> adj3 = adjMatrixBoth(linie, farms); // macierz sasiedzztwa pojemnosci i kosztow
 			
-			printAdjMatrix(adj); // dziala tylko dla adjMatrixCap
+			printAdjMatrix(adj);
+            std::cout << std::endl;
+            printAdjMatrix(lfspn);
+            std::cout << std::endl;
+
+			std::cout << "Max flow:\n" << edmondsKarp(adj) << std::endl;
+
             sf::sleep(sf::milliseconds(250));
 
             return;
@@ -182,7 +190,7 @@ void Game::handleMouseInput() {
                 sf::sleep(sf::milliseconds(100));
                 linia.Reset();
                 linia.FollowMouse(MousePosView(window, view));
-                tmp = HoverOverFarm(window, view, farms, linia.startNode);
+                tmp = HoverOverFarm(window, view, farms, (int)linia.startNode);
 
                 if (tmp != -1)
                 {
@@ -242,7 +250,7 @@ void Game::handleMouseInput() {
                     {
                         linia.CollideWith -= 1;
                     }
-                    splitLine(linie[linia.startLine], linie, linia.startNode, linia.startLine, farms);
+                    splitLine(linie[linia.startLine], linie, (int)linia.startNode, linia.startLine, farms);
                 }
                 if (linia.CollideWith != -1)
                 {
@@ -329,18 +337,27 @@ void Game::handleMouseInput() {
                 if (CursorNearLine(linie[i], MousePosView(window, view), farms))
                 {
                     size_t tmpC, tmpK;
-					std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() <<": ";
+					std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetLifeSpan() <<": ";
                     std::cin >> tmpC >> tmpK;
                     linie[i].setCapacity(tmpC);
-                    linie[i].SetCost(tmpK);
+                    linie[i].SetLifeSpan(tmpK);
                 }
             }
         }
         for (int i = 0; i < linie.size(); i++)
         {
-            std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << std::endl;
+            std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetLifeSpan() << std::endl;
         }
     }
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)) {
+		sf::Vector2f cr = MousePosView(window, view);
+		sf::sleep(sf::milliseconds(10));
+		sf::Vector2f mv = MousePosView(window, view) - cr;
+		for (int i = 0; i < all.size(); i++)
+		{
+			all[i]->move(sf::Vector2f(mv));
+		}
+	}
 }
 
 void Game::handleKeyboardInput() {
@@ -355,4 +372,11 @@ void Game::handleKeyboardInput() {
         window.setView(view);
         sf::sleep(sf::milliseconds(50));
     }
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+		all.clear();
+		ui.clear();
+		window.close();
+	}
 }
+

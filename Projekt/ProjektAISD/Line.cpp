@@ -5,18 +5,25 @@
 #include "Functions.hpp"
 #include "Node.hpp"
 
-Line::Line() {}
+Line::Line() { capacity = 0; lifeSpan = 0; endNode = NULL; startNode = NULL; }
 Line::Line(sf::Vector2f pos, std::shared_ptr<sf::Texture> txt)
 {
+    capacity = 0;
+	endNode = NULL;
+	startNode = NULL;
     texture = txt;
 	this->setOrigin({ 0, 10 });
     this->setTexture(texture.get());
     this->setPosition(pos);
-	cost = rand()%14;
+    lifeSpan = (1 + rand() % 50) * (2 + rand() % 3);
 }
 
 Line::Line(sf::RectangleShape x)
 {
+	capacity = 0;
+    lifeSpan = 0;
+	endNode = NULL;
+	startNode = NULL;
     this->setOrigin(x.getOrigin());
 	this->setTexture(x.getTexture());
     this->setPosition(x.getPosition());
@@ -103,10 +110,10 @@ void Line::setCapacity(size_t cap)
     if (cap != 0)
         capacity = cap;
     else
-        capacity = 1+ rand() % 50;
+        capacity = 1 + rand() % 50;
 }
-size_t Line::GetCost() { return cost; };
-void Line::SetCost(size_t n_cost) { cost = n_cost; }
+size_t Line::GetLifeSpan() { return lifeSpan; };
+void Line::SetLifeSpan(size_t n_lifeSpan) { lifeSpan = n_lifeSpan; }
 
 void Line::LookGood()
 {
