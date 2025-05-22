@@ -245,10 +245,13 @@ std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vec
             CapMatrix[0][i] = farms[i].capacity;
         else if (farms[i].type == NodeType::Tavern)
             CapMatrix[i][1] = farms[i].capacity;
-		else if (farms[i].type == NodeType::Alehouse)
-			CapMatrix[i][2] = farms[i].capacity;
+        else if (farms[i].type == NodeType::Alehouse) {
+            CapMatrix[i][2] = farms[i].capacity;
+			CapMatrix[2][i] = farms[i].capacity;
+        }
 
     }
+	std::cout << "Adjacency matrix crrate:\n";
     for (int i = 0; i < linie.size(); i++)
     {
         CapMatrix[linie[i].startNode][linie[i].endNode] = linie[i].getCapacity();
