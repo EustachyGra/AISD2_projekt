@@ -14,5 +14,6 @@ Node::Node(sf::Vector2f pos)
     this->setPosition(pos);
     this->setOrigin({ 10,10 });
     this->setSize({ 20,20 });
+	type = NodeType::Crossroad;
     this->setFillColor(sf::Color::White);
 }

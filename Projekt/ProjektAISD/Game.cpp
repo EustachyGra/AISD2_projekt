@@ -48,12 +48,15 @@ Game::Game(sf::RenderWindow& window)
 	std::cout << ui.size() << std::endl;
 	std::cout << ui.size() << std::endl;
 
-	Node tmpS = Node({ -250,-250 });
-	tmpS.setFillColor(sf::Color::Transparent);
-	Node tmpT = Node({ -250,-250 });
-	tmpS.setFillColor(sf::Color::Transparent);
-	farms.push_back(tmpS);
-	farms.push_back(tmpT);
+	Node SupeSource= Node({ -250,-250 });
+	SupeSource.setFillColor(sf::Color::Transparent);
+	Node SuperSink = Node({ -250,-250 });
+	SuperSink.setFillColor(sf::Color::Transparent);
+	Node SuperAlehouse = Node({ -250,-250 });
+	SuperAlehouse.setFillColor(sf::Color::Transparent);
+	farms.push_back(SupeSource);
+	farms.push_back(SuperSink);
+	farms.push_back(SuperAlehouse);
 
 }
 
@@ -96,7 +99,7 @@ void Game::render() {
 
 	for (int i = 0; i < linie.size(); i++)
 		all.push_back(&linie[i]);
-	for (int i = 0; i < farms.size(); i++)
+	for (int i = 3; i < farms.size(); i++)
 		all.push_back(&farms[i]);
 
 
@@ -143,22 +146,19 @@ void Game::handleMouseInput() {
 		{
 
 			// vec[i][j] = capacity ?? z node i do node j przechodzi capacity
-			// farm[0] = source S
-			// farm[1] = target T
+			// farm[0] = SUperSOurce
+			// farm[1] = SuperTaver
+			// farm[2] = SuperAlehouse
 			// jesli farm[i] jest farma to macierzy vec[0][i] = capacity bo S (0) przesyla po niewidzialnej linii do noda i
 			// jesli farm[i] jest tawerna to macierzy vec[i][1] = capacity bo i przesyla po niewidzialnej linii do T (1)
+			// jesli farm[i] jest alehouse to macierzy vec[i][2] = capacity bo i przesyla po niewidzialnej linii do A (2)
 			// jesli farm[i] nie jest zadna z tych to po prostu jest i jest zalezna od linii ktora z niej wychodza
 
 			std::vector<std::vector<size_t>> adj = adjMatrixCap(linie, farms);
-			std::vector<std::vector<size_t>> lfspn = adjMatrixLifeSpan(linie, farms.size());
-			//te nizej w razie potrzeby 
-			//std::vector<std::vector<size_t>> adj2 = adjMatrixCost(linie, farms); // macierz sasiedzztwa kosztow
-			//std::vector<std::vector<std::pair<size_t, size_t>>> adj3 = adjMatrixBoth(linie, farms); // macierz sasiedzztwa pojemnosci i kosztow
-
+			
 			printAdjMatrix(adj);
 			std::cout << std::endl;
-			printAdjMatrix(lfspn);
-			std::cout << std::endl;
+
 
 			std::cout << "Max flow:\n" << edmondsKarp(adj) << std::endl;
 
@@ -303,18 +303,15 @@ void Game::handleMouseInput() {
 			{
 			case 0:
 				farm.setTexture(&tx_farm);
-				farm.isFarm = true;
-				farm.isTavern = false;
+				farm.type = NodeType::Farm;
 				break;
 			case 1:
 				farm.setTexture(&tx_tav);
-				farm.isFarm = false;
-				farm.isTavern = true;
+				farm.type = NodeType::Tavern;
 				break;
 			case 2:
 				farm.setTexture(&tx_ale);
-				farm.isFarm = false;
-				farm.isTavern = false;
+				farm.type = NodeType::Alehouse;
 				break;
 			default:
 				break;

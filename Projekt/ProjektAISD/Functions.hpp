@@ -27,7 +27,6 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
 bool checkIntersection(std::vector<Line>& linie, Node& node, std::vector<Node> nodes);
 sf::Vector2f MousePosView(sf::RenderWindow& w, sf::View& view);
 std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vector<Node>& farms);
-std::vector<std::vector<size_t>> adjMatrixLifeSpan(std::vector<Line>& linie, size_t farms_size);
-std::vector<std::vector<std::pair<size_t,size_t>>> adjMatrixBoth(std::vector<Line>& linie, std::vector<Node>& farms);
+
 void printAdjMatrix(std::vector<std::vector<size_t>>& adj);
 #endif // FUNCTIONS_HPP

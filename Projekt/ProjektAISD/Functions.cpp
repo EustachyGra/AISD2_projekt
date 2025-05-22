@@ -100,7 +100,7 @@ void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::RectangleShape*>
 
 int HoverOverFarm(sf::RenderWindow& w, sf::View& view, const std::vector<Node> farms, int j)
 {
-    for (int i = 2; i < farms.size(); i++) {
+    for (int i = 3; i < farms.size(); i++) {
         if (i == j) continue;
         if (farms[i].getGlobalBounds().contains(MousePosView(w, view)))
         {
@@ -136,7 +136,7 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
     if(linia.startLine != -1)
 		if (linie[linia.startLine].startNode == linia.endNode || linie[linia.startLine].endNode == linia.endNode)
 			return true;
-    for (int i = 0; i < nodes.size(); i++)
+    for (int i = 3; i < nodes.size(); i++)
     {
         if (i == linia.startNode || i == linia.endNode) continue;
 		sf::Vector2f size = nodes[i].getSize();
@@ -196,7 +196,7 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
 
 bool checkIntersection(std::vector<Line>& linie, Node& node, std::vector<Node> nodes)
 {
-	for (int i = 0; i < nodes.size(); i++)
+	for (int i = 3; i < nodes.size(); i++)
 	{
 		if (node.getGlobalBounds().findIntersection(nodes[i].getGlobalBounds()))
 		{
@@ -241,10 +241,13 @@ std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vec
     for (int i = 0; i < farms.size(); i++)
     {
         CapMatrix[i].resize(farms.size(), 0);
-        if (farms[i].isFarm)
+        if (farms[i].type == NodeType::Farm)
             CapMatrix[0][i] = farms[i].capacity;
-        else if (farms[i].isTavern)
+        else if (farms[i].type == NodeType::Tavern)
             CapMatrix[i][1] = farms[i].capacity;
+		else if (farms[i].type == NodeType::Alehouse)
+			CapMatrix[i][2] = farms[i].capacity;
+
     }
     for (int i = 0; i < linie.size(); i++)
     {
@@ -254,38 +257,6 @@ std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vec
     return CapMatrix;
 }
 
-std::vector<std::vector<size_t>> adjMatrixLifeSpan(std::vector<Line>& linie, size_t farms_size)
-{
-    std::vector<std::vector<size_t>> LifeSpanMatrix(farms_size);
-    for (int i = 0;i < farms_size;i++)
-        LifeSpanMatrix[i].resize(farms_size, 0);
-
-	for (int i = 0; i < linie.size(); i++)
-	{
-        LifeSpanMatrix[linie[i].startNode][linie[i].endNode] = linie[i].GetLifeSpan();
-        LifeSpanMatrix[linie[i].endNode][linie[i].startNode] = linie[i].GetLifeSpan();
-	}
-	return LifeSpanMatrix;
-}
-
-std::vector<std::vector<std::pair<size_t, size_t>>> adjMatrixBoth(std::vector<Line>& linie, std::vector<Node>& farms)
-{
-    std::vector<std::vector<std::pair<size_t, size_t>>> adjMatrix(farms.size());
-	for (int i = 0; i < farms.size(); i++)
-	{
-		adjMatrix[i].resize(farms.size(), { 0, 0 });
-		if (farms[i].isFarm)
-			adjMatrix[0][i] = { farms[i].capacity, 0 };
-		else if (farms[i].isTavern)
-			adjMatrix[i][1] = { farms[i].capacity, 0 };
-	}
-	for (int i = 0; i < linie.size(); i++)
-	{
-		adjMatrix[linie[i].startNode][linie[i].endNode] = { linie[i].getCapacity(), linie[i].GetLifeSpan() };
-		adjMatrix[linie[i].endNode][linie[i].startNode] = { linie[i].getCapacity(), linie[i].GetLifeSpan() };
-	}
-    return adjMatrix;
-}
 
 void printAdjMatrix(std::vector<std::vector<size_t>>& adj)
 {

@@ -2,7 +2,13 @@
 #define NODE_HPP
 
 #include <SFML/Graphics.hpp>
-
+enum class NodeType
+{
+	Farm,
+	Tavern,
+	Alehouse,
+	Crossroad
+};
 class Node : public sf::RectangleShape
 {
 private:
@@ -11,8 +17,8 @@ private:
 
 public:
 	size_t capacity = 50;
-    bool isFarm = false;
-    bool isTavern = false;
+	NodeType type;
+
     Node(sf::Window& window);
     Node(sf::Vector2f pos);
 };
