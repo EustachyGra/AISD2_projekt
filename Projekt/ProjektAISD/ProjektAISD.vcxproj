@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Convex.cpp" />
+    <ClCompile Include="FileCompression.cpp" />
     <ClCompile Include="FlowAlgorithm.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Convex.hpp" />
+    <ClInclude Include="FileCompression.hpp" />
     <ClInclude Include="FlowAlgorithm.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="Game.hpp" />

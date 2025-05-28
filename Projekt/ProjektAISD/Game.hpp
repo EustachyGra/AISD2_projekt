@@ -6,6 +6,7 @@
 #include "Node.hpp"
 #include "FlowAlgorithm.hpp"
 #include "Convex.hpp"
+#include "FileCompression.hpp"
 
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -14,6 +15,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 class Game {
 

@@ -358,55 +358,56 @@ void Game::handleKeyboardInput() {
 
 void Game::SaveGame()
 {
-	std::ofstream file("save.txt");
-	if (file.is_open()) {
-		file << convexes.size();
-		for (size_t i = 0; i < convexes.size(); i++)
-		{
-			Convex& convex = convexes[i];
-			file << std::endl << convex.getPosition().x << " " << convex.getPosition().y << " ";
-			file << convex.getPointCount() << " ";
-			for (size_t j = 0; j < convex.getPointCount(); j++) {
-				const auto& point = convex.getPoint(j);
-				file << point.x << " " << point.y << " ";
-			}
+	std::ostringstream oss;
+	oss << convexes.size();
+	for (size_t i = 0; i < convexes.size(); i++)
+	{
+		Convex& convex = convexes[i];
+		oss << std::endl << convex.getPosition().x << " " << convex.getPosition().y << " ";
+		oss << convex.getPointCount() << " ";
+		for (size_t j = 0; j < convex.getPointCount(); j++) {
+			const auto& point = convex.getPoint(j);
+			oss << point.x << " " << point.y << " ";
 		}
-		file << std::endl<< farms.size();
-		for (size_t i = 0; i < farms.size(); i++)
-		{
-			Node& node = farms[i];
-			file << std::endl << node.getPosition().x << " " << node.getPosition().y << " "<< node.getCapacity();
-			if (node.type == NodeType::Farm) {
-				file << " F";
-			}
-			else if (node.type == NodeType::Tavern) {
-				file << " T";
-			}
-			else if (node.type == NodeType::Alehouse) {
-				file << " A";
-			}
-			else {
-				file << " C"; // Crossroad
-			}
-		}
-		file << std::endl<<linie.size();
-		for (size_t i = 0; i < linie.size(); i++)
-		{
-			Line& line = linie[i];
-			file << std::endl<< line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost();
-		}
-		file << std::endl << turn;
-		file << std::endl << stats;
-		file.close();
-		std::cout << "Game saved successfully." << std::endl;
 	}
+	oss << std::endl << farms.size();
+	for (size_t i = 0; i < farms.size(); i++)
+	{
+		Node& node = farms[i];
+		oss << std::endl << node.getPosition().x << " " << node.getPosition().y << " " << node.getCapacity();
+		if (node.type == NodeType::Farm) {
+			oss << " F";
+		}
+		else if (node.type == NodeType::Tavern) {
+			oss << " T";
+		}
+		else if (node.type == NodeType::Alehouse) {
+			oss << " A";
+		}
+		else {
+			oss << " C"; // Crossroad
+		}
+	}
+	oss << std::endl << linie.size();
+	for (size_t i = 0; i < linie.size(); i++)
+	{
+		Line& line = linie[i];
+		oss << std::endl << line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost();
+	}
+	oss << std::endl << turn;
+	oss << std::endl << stats;
 
+	std::string gameData = oss.str();
+	compressString(gameData, "save.txt");
+
+	std::cout << "Game saved successfully (compressed)." << std::endl;
 }
 
 void Game::LoadGame()
 {
-	std::ifstream file("save.txt");
-	if (file.is_open()) {
+	std::string decompressedData = decompressString("save.txt");
+	std::istringstream file(decompressedData);
+	if (file) {
 		size_t convexCount;
 		file >> convexCount;
 		convexes.clear();
@@ -421,7 +422,7 @@ void Game::LoadGame()
 				file >> point.x >> point.y;
 				points.push_back(point);
 			}
-			convexes.push_back(Convex(pos,points));
+			convexes.push_back(Convex(pos, points));
 		}
 		std::cout << "Loaded " << convexes.size() << " convexes." << std::endl;
 		size_t farmCount;
@@ -442,7 +443,6 @@ void Game::LoadGame()
 			case 'T':
 				node.setType(NodeType::Tavern);
 				node.setTexture(&tx_tav);
-
 				break;
 			case 'A':
 				node.setType(NodeType::Alehouse);
@@ -477,17 +477,20 @@ void Game::LoadGame()
 		}
 		std::cout << "Loaded " << linie.size() << " lines." << std::endl;
 		file >> turn;
-		while (!file.eof())
-		{
+		std::getline(file, stats); // consume the newline after turn
+		stats.clear();
+		while (file) {
 			std::string s;
 			std::getline(file, s);
-			stats += s + '\n';
+			if (!s.empty())
+				stats += s + '\n';
 		}
-		stats[stats.size() - 1] = '\0'; // Remove last newline character
-		file.close();
+		if (!stats.empty())
+			stats[stats.size() - 1] = '\0'; // Remove last newline character
 		std::cout << "Game loaded successfully." << std::endl;
 	}
 }
+
 void Game::ButtonHandler()
 {
 	if (button.getGlobalBounds().contains(MousePosView(window, uiView)))
