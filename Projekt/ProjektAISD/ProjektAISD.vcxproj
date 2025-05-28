@@ -143,8 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Algorithms.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Convex.cpp" />
+    <ClCompile Include="FlowAlgorithm.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Line.cpp" />
@@ -153,8 +154,9 @@
     <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Algorithms.hpp" />
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Convex.hpp" />
+    <ClInclude Include="FlowAlgorithm.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Line.hpp" />

@@ -5,6 +5,7 @@
 #include <vector>
 #include "Node.hpp"
 
+
 class Line : public sf::RectangleShape
 {
 private:
@@ -13,7 +14,8 @@ private:
 	sf::Color green = sf::Color(0, 255, 0, 160);
 	sf::Color red = sf::Color(255, 0, 0, 160);
     size_t capacity;
-    size_t lifeSpan;
+    size_t cost;
+	std::pair<size_t, size_t> used; // pair of start and end node indices
     //sf::Text text;
 
 public:
@@ -26,7 +28,7 @@ public:
     bool freePlace = false;
 
     Line();
-    Line(sf::Vector2f pos, std::shared_ptr<sf::Texture>);
+    Line(sf::Vector2f pos);
     Line(sf::RectangleShape x);
     sf::Vector2f getPosEnd() const;
     void setPosEnd(sf::Vector2f pos);
@@ -37,11 +39,12 @@ public:
     bool SnapToLine(std::vector<Line>& linie, std::vector<Node> farms, sf::Vector2f mousePos);
     void SetGreen();
     void SetRed();
-    void LookGood();
 	size_t getCapacity();
 	void setCapacity(size_t cap=0);
-    void SetLifeSpan(size_t n_lifeSpan);
-	size_t GetLifeSpan();
+    void setUsed(std::pair<size_t, size_t> flow);
+    std::pair<size_t, size_t> getUsed();
+    void SetCost(size_t n_lifeSpan);
+	size_t GetCost();
 };
 
 #endif // LINE_HPP

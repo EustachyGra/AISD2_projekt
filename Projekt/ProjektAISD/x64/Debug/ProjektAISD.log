@@ -1,9 +1,26 @@
-﻿  Game.cpp
+﻿  Button.cpp
 C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
-  (kompilowanie pliku źródłowego „Game.cpp”)
+  (kompilowanie pliku źródłowego „Button.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
       zobacz deklarację „std::runtime_error”
       C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
       zobacz deklarację „sf::Exception”
   
+  Menu.cpp
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
+  (kompilowanie pliku źródłowego „Menu.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      zobacz deklarację „std::runtime_error”
+      C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
+      zobacz deklarację „sf::Exception”
+  
+  Źródło.cpp
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
+  (kompilowanie pliku źródłowego „Źródło.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      zobacz deklarację „std::runtime_error”
+      C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
+      zobacz deklarację „sf::Exception”
+  
+  Generowanie kodu...
   ProjektAISD.vcxproj -> C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\x64\Debug\ProjektAISD.exe

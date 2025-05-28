@@ -5,6 +5,10 @@
 #include <vector>
 #include "Line.hpp"
 #include "Node.hpp"
+#include <cmath>
+#include <iostream>
+#include <algorithm>
+
 struct MemCP
 {
 	int i;
@@ -21,12 +25,11 @@ bool CursorNearLine(const Line& line, sf::Vector2f pos, std::vector<Node> nodes)
 void splitLine(sf::Vector2f mid, Line ogLine, std::vector<Line>& linie, int i, std::vector<Node>& farms, sf::Texture& tx);
 void splitLine(Line ogLine, std::vector<Line>& linie, int nodeId, int lineId, std::vector<Node>& farms);
 bool LineCrossing(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2f q2);
-void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::RectangleShape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::RectangleShape* obj = nullptr);
+void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::Shape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::Drawable* obj = nullptr);
 int HoverOverFarm(sf::RenderWindow& w, sf::View& view, const std::vector<Node> farms, int j = -1);
 bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> nodes);
 bool checkIntersection(std::vector<Line>& linie, Node& node, std::vector<Node> nodes);
 sf::Vector2f MousePosView(sf::RenderWindow& w, sf::View& view);
-std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vector<Node>& farms);
+float turn(sf::Vector2f p, sf::Vector2f q, sf::Vector2f r);
 
-void printAdjMatrix(std::vector<std::vector<size_t>>& adj);
 #endif // FUNCTIONS_HPP

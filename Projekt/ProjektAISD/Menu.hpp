@@ -5,6 +5,7 @@
 #include "Button.hpp"
 #include <vector>
 #include <iostream>
+#include "Game.hpp"
 class Menu
 {
 	std::vector<Button> buttons;
@@ -12,7 +13,7 @@ class Menu
 	sf::View view;
 	sf::Texture img, plank;
 	sf::RectangleShape background;
-	std::shared_ptr<sf::Font> font;
+	sf::Font font;
 
 public:
 	Menu(sf::RenderWindow& window);

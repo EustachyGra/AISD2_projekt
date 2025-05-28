@@ -1,6 +1,6 @@
 #include "Button.hpp"
 #include <iostream>
-Button::Button(sf::Vector2f pos, sf::Vector2f size, std::shared_ptr<sf::Font> ft, std::string str)
+Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str)
 {
 	this->setSize(size);
 	this->setPosition(pos);
@@ -9,6 +9,17 @@ Button::Button(sf::Vector2f pos, sf::Vector2f size, std::shared_ptr<sf::Font> ft
 	textString = str;
 	font = ft;
 	
+}
+Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, sf::Texture& tx, sf::Texture& c_tx)
+{
+	this->setSize(size);
+	this->setPosition(pos);
+	this->setFillColor(sf::Color::White);
+
+	textString = str;
+	font = ft;
+	button_tx = tx;
+	cancel_tx = c_tx;
 }
 
 bool Button::isMouseOver(sf::RenderWindow& window, sf::View& view)
@@ -24,7 +35,7 @@ void Button::draw(sf::RenderWindow& w, sf::View& v)
 {
 	w.setView(v);
 	w.draw(*this);
-	sf::Text text(*font, textString, 24);
+	sf::Text text(font, textString, 24);
 	text.setFillColor(sf::Color::White);
 	text.setStyle(sf::Text::Bold);
 	text.setOutlineColor(sf::Color::Black);

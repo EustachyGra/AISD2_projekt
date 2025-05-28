@@ -1,27 +1,21 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
-//#include <iostream>
 #include "Line.hpp"
 #include "Functions.hpp"
-#include "Node.hpp"
-
-Line::Line() { capacity = 0; lifeSpan = 0; endNode = NULL; startNode = NULL; }
-Line::Line(sf::Vector2f pos, std::shared_ptr<sf::Texture> txt)
+Line::Line() { capacity = 0; cost = 0; endNode = NULL; startNode = NULL; }
+Line::Line(sf::Vector2f pos)
 {
     capacity = 0;
 	endNode = NULL;
 	startNode = NULL;
-    texture = txt;
 	this->setOrigin({ 0, 10 });
     this->setTexture(texture.get());
     this->setPosition(pos);
-    lifeSpan = (1 + rand() % 50) * (2 + rand() % 3);
+    cost = (1 + rand() % 20);
 }
 
 Line::Line(sf::RectangleShape x)
 {
 	capacity = 0;
-    lifeSpan = 0;
+    cost = 0;
 	endNode = NULL;
 	startNode = NULL;
     this->setOrigin(x.getOrigin());
@@ -112,12 +106,13 @@ void Line::setCapacity(size_t cap)
     else
         capacity = 1 + rand() % 50;
 }
-size_t Line::GetLifeSpan() { return lifeSpan; };
-void Line::SetLifeSpan(size_t n_lifeSpan) { lifeSpan = n_lifeSpan; }
-
-void Line::LookGood()
+void Line::setUsed(std::pair<size_t, size_t> flow)
 {
-    this->setFillColor(sf::Color(255, 255, 255, 255));
-   // this->setOutlineColor(sf::Color::Black);
-   // this->setOutlineThickness(2);
+    used = flow;
 }
+std::pair<size_t, size_t> Line::getUsed()
+{
+	return used;
+}
+size_t Line::GetCost() { return cost; };
+void Line::SetCost(size_t n_cost) { cost = n_cost; }

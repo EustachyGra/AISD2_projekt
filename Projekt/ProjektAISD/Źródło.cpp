@@ -13,7 +13,5 @@ int main() {
 
 	Menu menu(window);
 	menu.run();
-    Game game(window);
-    game.run();
     return 0;
 }

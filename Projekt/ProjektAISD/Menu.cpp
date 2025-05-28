@@ -12,7 +12,7 @@ Menu::Menu(sf::RenderWindow& window) : window(window)
 		std::cerr << "Error loading image" << std::endl;
 		window.close();
 	}
-	if (!(font = std::make_shared<sf::Font>())->openFromFile("Textury/arial.ttf"))
+	if (!font.openFromFile("Textury/arial.ttf"))
 	{
 		std::cerr << "Error loading font" << std::endl;
 		window.close();
@@ -27,16 +27,16 @@ Menu::Menu(sf::RenderWindow& window) : window(window)
 	background.setTexture(&img);
 
 	Button startButton(sf::Vector2f(window.mapCoordsToPixel({ -200, 525}, view)), {200, 50},font, "Start");
-	Button exitButton(sf::Vector2f(window.mapCoordsToPixel({ -200, 575 }, view)), { 200, 50 },font, "Exit");
-	Button creditsButton(sf::Vector2f(window.mapCoordsToPixel({ -200, 625 }, view)), { 200, 50 },font, "Authors");
+	Button loadButton(sf::Vector2f(window.mapCoordsToPixel({ -200, 575 }, view)), { 200, 50 },font, "Load");
+	Button exitButton(sf::Vector2f(window.mapCoordsToPixel({ -200, 625 }, view)), { 200, 50 },font, "Exit");
 
 	startButton.setTexture(&plank);
 	exitButton.setTexture(&plank);
-	creditsButton.setTexture(&plank);
+	loadButton.setTexture(&plank);
 
 	buttons.push_back(startButton);
+	buttons.push_back(loadButton);
 	buttons.push_back(exitButton);
-	buttons.push_back(creditsButton);
 
 	window.clear();
 	window.draw(background);
@@ -67,10 +67,20 @@ void Menu::run()
 			if (buttons[0].isMouseOver(window, view))
 			{
 				std::cout << "Start button clicked" << std::endl;
-				sf::sleep(sf::milliseconds(200));
-				break;
+				sf::sleep(sf::milliseconds(250));
+				Game game(window,font);
+				game.run();
+				return;
 			}
 			if (buttons[1].isMouseOver(window, view))
+			{
+				std::cout << "Load button clicked" << std::endl;
+				sf::sleep(sf::milliseconds(250));
+				Game game(window,font,true);
+				game.run();
+				return;
+			}
+			if (buttons[2].isMouseOver(window, view))
 			{
 				std::cout << "Exit button clicked" << std::endl;
 				window.close();

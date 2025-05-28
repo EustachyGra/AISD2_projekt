@@ -1,20 +1,17 @@
-#include "Algorithms.hpp"
-#include "Functions.hpp"
 #include "Game.hpp"
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
 
-Game::Game(sf::RenderWindow& window)
+Game::Game(sf::RenderWindow& window, sf::Font& ft, bool load)
 	: window(window) {
-	view.setSize({ 1280, 720 });
+	font = ft;
+	view.setSize({ 1920, 1080 });
+	view.zoom(2.0f); // Initial zoom level
 	uiView.setSize({ 1920, 1080 });
 	srand((unsigned int)time(NULL));
 
 	if (!tx_farm.loadFromFile("Textury/farm_p3.png") ||
 		!tx_tav.loadFromFile("Textury/tavern_p3.png") ||
 		!tx_ale.loadFromFile("Textury/farm_b.png") ||
-		!(tx_road = std::make_shared<sf::Texture>())->loadFromFile("Textury/road.png") ||
+		!tx_road.loadFromFile("Textury/road.png")||
 		!tx_cross.loadFromFile("Textury/cross.png")) {
 		window.close();
 	}
@@ -29,7 +26,6 @@ Game::Game(sf::RenderWindow& window)
 	background.setTexture(&bg_texture);
 	ui.push_back(&background);
 	//sf::View v;
-	view.setSize({ 1280, 720 });
 
 	button.setSize({ 50, 50 });
 	button.setFillColor(sf::Color::Red);
@@ -45,19 +41,21 @@ Game::Game(sf::RenderWindow& window)
 	button3.setFillColor(sf::Color::Magenta);
 	button3.setPosition(window.mapPixelToCoords({ 100, 0 }, uiView));
 	ui.push_back(&button3);
+
+	button4.setSize({ 50, 50 });
+	button4.setFillColor(sf::Color::Black);
+	button4.setPosition(window.mapPixelToCoords({ 150, 0 }, uiView));
+	ui.push_back(&button4);
+
+	button5.setSize({ 50, 50 });
+	button5.setFillColor(sf::Color::Green);
+	button5.setPosition(window.mapPixelToCoords({ 200, 0 }, uiView));
+	ui.push_back(&button5);
+
 	std::cout << ui.size() << std::endl;
 	std::cout << ui.size() << std::endl;
-
-	Node SupeSource= Node({ -250,-250 });
-	SupeSource.setFillColor(sf::Color::Transparent);
-	Node SuperSink = Node({ -250,-250 });
-	SuperSink.setFillColor(sf::Color::Transparent);
-	Node SuperAlehouse = Node({ -250,-250 });
-	SuperAlehouse.setFillColor(sf::Color::Transparent);
-	farms.push_back(SupeSource);
-	farms.push_back(SuperSink);
-	farms.push_back(SuperAlehouse);
-
+	if (load)
+		LoadGame();
 }
 
 Game::~Game()
@@ -66,7 +64,6 @@ Game::~Game()
 	ui.clear();
 	farms.clear();
 	linie.clear();
-	tx_road.reset();
 	std::cout << "Game destroyed" << std::endl;
 	// window.close(); // Uncomment if you want to close the window when the game is destroyed
 }
@@ -90,82 +87,39 @@ void Game::processEvents() {
 }
 
 void Game::update() {
+	if (!window.hasFocus()) return;
 	handleMouseInput();
 	handleKeyboardInput();
 }
-
-void Game::render() {
+void Game::UpdateAll()
+{
 	all.clear();
-
+	for (int i = 0; i < convexes.size(); i++)
+		all.push_back(&convexes[i]);
 	for (int i = 0; i < linie.size(); i++)
 		all.push_back(&linie[i]);
-	for (int i = 3; i < farms.size(); i++)
+	for (int i = 0; i < farms.size(); i++)
 		all.push_back(&farms[i]);
 
+}
 
+
+void Game::render() {
+	UpdateAll();
 	draw(ui, all, window, view, uiView);
+	sf::sleep(sf::milliseconds(100)); 
+	
+	/*for (int i = 0; i < convex.getPointCount(); i++)
+	{
+		std::cout<<i<<" ("<<convex.getPoint(i).x << ","<<convex.getPoint(i).y<<") ";
+	}
+	std::cout << std::endl;*/
 }
 
 void Game::handleMouseInput() {
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-		if (button.getGlobalBounds().contains(MousePosView(window, uiView)))
-		{
-			change = !change;
-			std::cout << "Change mode: " << std::endl;
-			sf::sleep(sf::milliseconds(250));
-			return;
-		}
-		if (button2.getGlobalBounds().contains(MousePosView(window, uiView)))
-		{
-			placeMode = (placeMode + 1) % 3;
-			switch (placeMode)
-			{
-			case 0:
-			{
-				std::cout << "Placing farms" << std::endl;
-				break;
-			}
-			case 1:
-			{
-				std::cout << "Placing taverns" << std::endl;
-				break;
-			}
-			case 2:
-			{
-				std::cout << "Placing alehouses" << std::endl;
-				break;
-			}
-			default:
-				break;
-			}
-			sf::sleep(sf::milliseconds(250));
-
-			return;
-		}
-		if (button3.getGlobalBounds().contains(MousePosView(window, uiView)))
-		{
-
-			// vec[i][j] = capacity ?? z node i do node j przechodzi capacity
-			// farm[0] = SUperSOurce
-			// farm[1] = SuperTaver
-			// farm[2] = SuperAlehouse
-			// jesli farm[i] jest farma to macierzy vec[0][i] = capacity bo S (0) przesyla po niewidzialnej linii do noda i
-			// jesli farm[i] jest tawerna to macierzy vec[i][1] = capacity bo i przesyla po niewidzialnej linii do T (1)
-			// jesli farm[i] jest alehouse to macierzy vec[i][2] = capacity bo i przesyla po niewidzialnej linii do A (2)
-			// jesli farm[i] nie jest zadna z tych to po prostu jest i jest zalezna od linii ktora z niej wychodza
-
-			std::vector<std::vector<size_t>> adj = adjMatrixCap(linie, farms);
-			
-			printAdjMatrix(adj);
-			std::cout << std::endl;
-
-
-			std::cout << "Max flow:\n" << edmondsKarp(adj) << std::endl;
-
-			sf::sleep(sf::milliseconds(250));
-
-			return;
-		}
+		ButtonHandler();
 		if (change) {
 			int tmp;
 			sf::Vector2f cp;
@@ -173,7 +127,7 @@ void Game::handleMouseInput() {
 			Line linia;
 			if ((tmp = HoverOverFarm(window, view, farms)) != -1)
 			{
-				linia = Line({ float(farms[tmp].getPosition().x), float(farms[tmp].getPosition().y) }, tx_road);
+				linia = Line({ float(farms[tmp].getPosition().x), float(farms[tmp].getPosition().y) });
 				linia.startNode = tmp;
 			}
 			else
@@ -194,7 +148,7 @@ void Game::handleMouseInput() {
 				Node crossroad(mem.pos);
 				crossroad.setTexture(&tx_cross);
 				farms.push_back(crossroad);
-				linia = Line(crossroad.getPosition(), tx_road);
+				linia = Line(crossroad.getPosition());
 				linia.startNode = farms.size() - 1;
 				linia.startLine = mem.i;
 				L2L = true;
@@ -233,15 +187,8 @@ void Game::handleMouseInput() {
 						linia.CanPlace = false;
 					}
 				}
-				all.clear();
-				for (int i = 0; i < linie.size(); i++)
-				{
-					all.push_back(&linie[i]);
-				}
-				for (int i = 0; i < farms.size(); i++)
-				{
-					all.push_back(&farms[i]);
-				}
+				UpdateAll();
+
 
 				draw(ui, all, window, view, uiView, &linia);
 				// std::cout << "Creating line with start node: " << linia.startNode << std::endl; // Debugging line
@@ -277,6 +224,7 @@ void Game::handleMouseInput() {
 				/* linia.setOutlineColor(sf::Color::Black);
 				 linia.setOutlineThickness(2);*/
 				linia.setCapacity();
+				linia.setTexture(&tx_road);
 				linie.push_back(linia);
 				//   std::cout << "Capacity: " << linia.getCapacity() << std::endl;
 
@@ -298,36 +246,21 @@ void Game::handleMouseInput() {
 		else if (!change)
 		{
 			bool canPlace = false;
-			Node farm(window);
+			Node farm(window, placeType);
 			switch (placeMode)
 			{
 			case 0:
 				farm.setTexture(&tx_farm);
-				farm.type = NodeType::Farm;
 				break;
 			case 1:
 				farm.setTexture(&tx_tav);
-				farm.type = NodeType::Tavern;
 				break;
 			case 2:
 				farm.setTexture(&tx_ale);
-				farm.type = NodeType::Alehouse;
 				break;
 			default:
 				break;
 			}
-			/*if (isFarm)
-			{
-				farm.setTexture(&tx_farm);
-				farm.isFarm = true;
-				farm.isTavern = false;
-			}
-			else
-			{
-				farm.isTavern = true;
-				farm.isFarm = false;
-				farm.setTexture(&tx_tav);
-			}*/
 			while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
 				farm.setPosition(MousePosView(window, view));
@@ -341,6 +274,19 @@ void Game::handleMouseInput() {
 				{
 					canPlace = true;
 					farm.setFillColor(sf::Color(255, 255, 255, 255));
+					if (farm.type == NodeType::Farm)
+					{
+						for (int i = 0; i < convexes.size(); i++)
+						{
+							if (convexes[i].Contains(farm.getPosition()))
+							{
+								std::cout << "Farm placed inside convex hull." << std::endl;
+								farm.setFillColor(sf::Color::Yellow);
+								break;
+							}
+						}
+					}
+			
 				}
 			}
 			if (canPlace)
@@ -367,16 +313,16 @@ void Game::handleMouseInput() {
 				if (CursorNearLine(linie[i], MousePosView(window, view), farms))
 				{
 					size_t tmpC, tmpK;
-					std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetLifeSpan() << ": ";
+					std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << ": ";
 					std::cin >> tmpC >> tmpK;
 					linie[i].setCapacity(tmpC);
-					linie[i].SetLifeSpan(tmpK);
+					linie[i].SetCost(tmpK);
 				}
 			}
 		}
 		for (int i = 0; i < linie.size(); i++)
 		{
-			std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetLifeSpan() << std::endl;
+			std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << std::endl;
 		}
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)) {
@@ -410,3 +356,256 @@ void Game::handleKeyboardInput() {
 	}
 }
 
+void Game::SaveGame()
+{
+	std::ofstream file("save.txt");
+	if (file.is_open()) {
+		file << convexes.size();
+		for (size_t i = 0; i < convexes.size(); i++)
+		{
+			Convex& convex = convexes[i];
+			file << std::endl << convex.getPosition().x << " " << convex.getPosition().y << " ";
+			file << convex.getPointCount() << " ";
+			for (size_t j = 0; j < convex.getPointCount(); j++) {
+				const auto& point = convex.getPoint(j);
+				file << point.x << " " << point.y << " ";
+			}
+		}
+		file << std::endl<< farms.size();
+		for (size_t i = 0; i < farms.size(); i++)
+		{
+			Node& node = farms[i];
+			file << std::endl << node.getPosition().x << " " << node.getPosition().y << " "<< node.getCapacity();
+			if (node.type == NodeType::Farm) {
+				file << " F";
+			}
+			else if (node.type == NodeType::Tavern) {
+				file << " T";
+			}
+			else if (node.type == NodeType::Alehouse) {
+				file << " A";
+			}
+			else {
+				file << " C"; // Crossroad
+			}
+		}
+		file << std::endl<<linie.size();
+		for (size_t i = 0; i < linie.size(); i++)
+		{
+			Line& line = linie[i];
+			file << std::endl<< line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost();
+		}
+		file << std::endl << turn;
+		file << std::endl << stats;
+		file.close();
+		std::cout << "Game saved successfully." << std::endl;
+	}
+
+}
+
+void Game::LoadGame()
+{
+	std::ifstream file("save.txt");
+	if (file.is_open()) {
+		size_t convexCount;
+		file >> convexCount;
+		convexes.clear();
+		for (size_t i = 0; i < convexCount; i++) {
+			sf::Vector2f pos;
+			file >> pos.x >> pos.y;
+			size_t pointCount;
+			file >> pointCount;
+			std::vector<sf::Vector2f> points;
+			for (size_t j = 0; j < pointCount; j++) {
+				sf::Vector2f point;
+				file >> point.x >> point.y;
+				points.push_back(point);
+			}
+			convexes.push_back(Convex(pos,points));
+		}
+		std::cout << "Loaded " << convexes.size() << " convexes." << std::endl;
+		size_t farmCount;
+		file >> farmCount;
+		farms.clear();
+		for (size_t i = 0; i < farmCount; i++) {
+			sf::Vector2f pos;
+			size_t capacity;
+			char typeChar;
+			file >> pos.x >> pos.y >> capacity >> typeChar;
+			Node node(window);
+			switch (typeChar)
+			{
+			case 'F':
+				node.setType(NodeType::Farm);
+				node.setTexture(&tx_farm);
+				break;
+			case 'T':
+				node.setType(NodeType::Tavern);
+				node.setTexture(&tx_tav);
+
+				break;
+			case 'A':
+				node.setType(NodeType::Alehouse);
+				node.setTexture(&tx_ale);
+				break;
+			case 'C':
+				node = Node(pos); // Crossroad
+				node.setTexture(&tx_cross);
+				break;
+			}
+			node.setPosition(pos);
+			node.setCapacity(capacity);
+			farms.push_back(node);
+		}
+		std::cout << "Loaded " << farms.size() << " farms." << std::endl;
+		size_t lineCount;
+		file >> lineCount;
+		linie.clear();
+		for (size_t i = 0; i < lineCount; i++) {
+			size_t startNode, endNode;
+			size_t capacity, cost;
+			file >> startNode >> endNode >> capacity >> cost;
+			Line line(farms[startNode].getPosition());
+			line.ConnectToNode(farms, startNode, endNode);
+			line.setCapacity(capacity);
+			line.SetCost(cost);
+			line.setFillColor(sf::Color(255, 255, 255, 255));
+			line.startNode = startNode;
+			line.endNode = endNode;
+			line.setTexture(&tx_road);
+			linie.push_back(line);
+		}
+		std::cout << "Loaded " << linie.size() << " lines." << std::endl;
+		file >> turn;
+		while (!file.eof())
+		{
+			std::string s;
+			std::getline(file, s);
+			stats += s + '\n';
+		}
+		stats[stats.size() - 1] = '\0'; // Remove last newline character
+		file.close();
+		std::cout << "Game loaded successfully." << std::endl;
+	}
+}
+void Game::ButtonHandler()
+{
+	if (button.getGlobalBounds().contains(MousePosView(window, uiView)))
+	{
+		change = !change;
+		std::cout << "Change mode: " << std::endl;
+		sf::sleep(sf::milliseconds(250));
+		return;
+	}
+	if (button2.getGlobalBounds().contains(MousePosView(window, uiView)))
+	{
+		placeMode = (placeMode + 1) % 3;
+		switch (placeMode)
+		{
+		case 0:
+		{
+			std::cout << "Placing farms" << std::endl;
+			placeType = NodeType::Farm;
+			break;
+		}
+		case 1:
+		{
+			std::cout << "Placing taverns" << std::endl;
+			placeType = NodeType::Tavern;
+			break;
+		}
+		case 2:
+		{
+			std::cout << "Placing alehouses" << std::endl;
+			placeType = NodeType::Alehouse;
+			break;
+		}
+		default:
+			break;
+		}
+		sf::sleep(sf::milliseconds(250));
+
+		return;
+	}
+	if (button3.getGlobalBounds().contains(MousePosView(window, uiView)))
+	{
+		TurnEnd();
+		sf::sleep(sf::milliseconds(250));
+		return;
+	}
+	if (button4.getGlobalBounds().contains(MousePosView(window, uiView)))
+	{
+		convexes.push_back(Convex(all));
+		sf::sleep(sf::milliseconds(250));
+		return;
+	}
+	if (button5.getGlobalBounds().contains(MousePosView(window, uiView)))
+	{
+		SaveGame();
+		sf::sleep(sf::milliseconds(250));
+		return;
+	}
+}
+void Game::TurnEnd()
+{
+	turn++;
+	FlowAlgorithm flow(farms.size());
+	flow.MakeGraph(linie, farms);
+	flow.printGraph();
+	std::pair<size_t,size_t> delivery = flow.Calculate();
+	for (size_t i = 0; i < linie.size(); i++)
+	{
+		std::pair<size_t, size_t> flowLine = flow.checkLine(linie[i].startNode, linie[i].endNode);
+		std::pair<size_t, size_t> flowLine2 = flow.checkLine(linie[i].endNode, linie[i].startNode);
+		flowLine.first += flowLine2.first; // Dodajemy przeplyw z drugiej warstwy
+		flowLine.second += flowLine2.second; // Dodajemy koszt z drugiej warstwy
+		linie[i].setUsed(flowLine);
+	}
+	size_t n = farms.size();
+	std::cout << "Farms: " << n << std::endl;
+	size_t max_wheat = 0, max_ale = 0, max_tavern = 0;
+	for (size_t i = 0; i < n; i++)
+	{
+
+		Node& node = farms[i];
+		if (node.getType() == NodeType::Farm)
+		{
+			node.setUsed(flow.checkBuilding(2*n, i));
+			max_wheat += node.getCapacity();
+		}
+		else if (node.getType() == NodeType::Tavern)
+		{
+			node.setUsed(flow.checkBuilding(i+n , 2*n + 1));
+			max_tavern += node.getCapacity();
+		}
+		else if (node.getType() == NodeType::Alehouse)
+		{
+			node.setUsed(flow.checkBuilding(i, i+n));
+			max_ale += node.getCapacity();
+		}
+	}
+	stats += "\nTurn: " + std::to_string(turn) + " Max Wheat: " + std::to_string(max_wheat) +
+		"\nTurn: " + std::to_string(turn) + " Max Ale: " + std::to_string(max_ale)+
+		"\nTurn: " + std::to_string(turn) + " Max Tavern: " + std::to_string(max_tavern) +
+		"\nTurn: " + std::to_string(turn) + " Total Delivery: " + std::to_string(delivery.first) +
+		"\nTurn: " + std::to_string(turn) + " Total Cost: " + std::to_string(delivery.second);
+	printUsed();
+	std::cout << stats << std::endl;
+}
+
+void Game::printUsed()
+{
+	for (size_t i = 0; i < farms.size(); i++)
+	{
+		if (farms[i].getType() == NodeType::Crossroad) continue; // Skip crossroads
+		std::cout << "Farm " << i << ": " << farms[i].getUsed() << "/" << farms[i].getCapacity() << std::endl;
+	}
+	for (size_t i = 0; i < linie.size(); i++)
+	{
+		std::pair<size_t, size_t> used = linie[i].getUsed();
+		if (used.first == 0 && used.second == 0) continue; // Skip lines with no flow
+		std::cout << "Line " << i << ": " << 
+			"\n\tto: "<<used.first << "/" << linie[i].getCapacity() <<
+			"\n\tfrom " << used.second << "/" << linie[i].getCapacity() << std::endl;
+	}
+}

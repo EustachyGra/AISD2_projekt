@@ -1,12 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <cmath>
-#include <iostream>
-#include <vector>
-#include <algorithm>
 #include "Functions.hpp"
-#include "Line.hpp"
-#include "Node.hpp"
-#include <iomanip> // tylko do printAdjMatrix
 
 float dl(sf::Vector2f a, sf::Vector2f b)
 {
@@ -52,14 +44,14 @@ void splitLine(sf::Vector2f mid, Line ogLine, std::vector<Line>& linie, int i, s
     mid = crossroad.getPosition();
     Line linia1(ogLine);
     linia1.ConnectToNode(farms, farms.size() - 1, ogLine.startNode);
-	linia1.SetLifeSpan(ogLine.GetLifeSpan());
+	linia1.SetCost(ogLine.GetCost()/2);
 	linia1.setCapacity(ogLine.getCapacity());
-	linia1.LookGood();
+	linia1.setFillColor(sf::Color(255, 255, 255, 255));
     Line linia2(ogLine);
     linia2.ConnectToNode(farms, ogLine.endNode, farms.size() - 1);
-    linia2.SetLifeSpan(ogLine.GetLifeSpan());
+    linia2.SetCost(ogLine.GetCost()/2);
 	linia2.setCapacity(ogLine.getCapacity());
-	linia2.LookGood();
+	linia2.setFillColor(sf::Color(255, 255, 255, 255));
     linie.erase(linie.begin() + i);
     linie.push_back(linia1);
     linie.push_back(linia2);
@@ -68,39 +60,47 @@ void splitLine(Line ogLine, std::vector<Line>& linie, int nodeId, int lineId, st
 {
     Line linia1(ogLine);
     linia1.ConnectToNode(farms, nodeId, ogLine.startNode);
-	linia1.SetLifeSpan(ogLine.GetLifeSpan());
-    linia1.LookGood();
+    linia1.setTexture(ogLine.getTexture());
+	linia1.SetCost(ogLine.GetCost()/2);
+    linia1.setFillColor(sf::Color(255, 255, 255, 255));
     Line linia2(ogLine);
     linia2.ConnectToNode(farms, ogLine.endNode, nodeId);
-	linia2.SetLifeSpan(ogLine.GetLifeSpan());
-    linia2.LookGood();
+	linia2.SetCost(ogLine.GetCost()/2);
+    linia1.setTexture(ogLine.getTexture());
+    linia2.setFillColor(sf::Color(255, 255, 255, 255));
     linie.erase(linie.begin() + lineId);
     linie.push_back(linia1);
     linie.push_back(linia2);
 }
-void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::RectangleShape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::RectangleShape* obj)
+void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::Shape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::Drawable* obj)
 {
     w.clear(sf::Color::White);
     w.setView(uiView);
-    for (size_t i = 0; i < ui.size(); i++)
-    {
-        w.draw(*ui[i]);
-    }
+    if (!ui.empty())
+		w.draw(*ui[0]);
 
     w.setView(view);
+
     for (size_t i = 0; i < all.size(); i++)
     {   
         w.draw(*all[i]);
     }
     if (obj != nullptr)
         w.draw(*obj);
-    
+
+    w.setView(uiView);
+    for (size_t i = 1; i < ui.size(); i++)
+    {
+        w.draw(*ui[i]);
+    }
+
+    w.setView(view);
     w.display();
 }
 
 int HoverOverFarm(sf::RenderWindow& w, sf::View& view, const std::vector<Node> farms, int j)
 {
-    for (int i = 3; i < farms.size(); i++) {
+    for (int i = 0; i < farms.size(); i++) {
         if (i == j) continue;
         if (farms[i].getGlobalBounds().contains(MousePosView(w, view)))
         {
@@ -119,10 +119,10 @@ bool LineCrossing(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2
     float y3 = q1.y;//nodes[linia.startNode].getPosition().y;
     float x4 = q2.x;//linia.getPosEnd().x;
     float y4 = q2.y;//linia.getPosEnd().y;
-    float d1 = round((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
-    float d2 = round((x2 - x1) * (y4 - y1) - (y2 - y1) * (x4 - x1));
-    float d3 = round((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3));
-    float d4 = round((x4 - x3) * (y2 - y3) - (y4 - y3) * (x2 - x3));
+	float d1 = turn(p1, p2, q1);
+	float d2 = turn(p1, p2, q2);
+	float d3 = turn(q1, q2, p1);
+	float d4 = turn(q1, q2, p2);
 
     //std::cout << "d1: " << d1 << " d2: " << d2 << " d3: " << d3 << " d4: " << d4 << std::endl;
     if (d1 * d2 <= 0 && d3 * d4 <= 0)
@@ -136,7 +136,7 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
     if(linia.startLine != -1)
 		if (linie[linia.startLine].startNode == linia.endNode || linie[linia.startLine].endNode == linia.endNode)
 			return true;
-    for (int i = 3; i < nodes.size(); i++)
+    for (int i = 0; i < nodes.size(); i++)
     {
         if (i == linia.startNode || i == linia.endNode) continue;
 		sf::Vector2f size = nodes[i].getSize();
@@ -196,7 +196,7 @@ bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> 
 
 bool checkIntersection(std::vector<Line>& linie, Node& node, std::vector<Node> nodes)
 {
-	for (int i = 3; i < nodes.size(); i++)
+	for (int i = 0; i < nodes.size(); i++)
 	{
 		if (node.getGlobalBounds().findIntersection(nodes[i].getGlobalBounds()))
 		{
@@ -235,42 +235,10 @@ sf::Vector2f MousePosView(sf::RenderWindow& w, sf::View& view)
     return worldPos;
 }
 
-std::vector<std::vector<size_t>> adjMatrixCap(std::vector<Line>& linie, std::vector<Node>& farms)
+float turn(sf::Vector2f p, sf::Vector2f q, sf::Vector2f r)
 {
-    std::vector<std::vector<size_t>> CapMatrix(farms.size());
-    for (int i = 0; i < farms.size(); i++)
-    {
-        CapMatrix[i].resize(farms.size(), 0);
-        if (farms[i].type == NodeType::Farm)
-            CapMatrix[0][i] = farms[i].capacity;
-        else if (farms[i].type == NodeType::Tavern)
-            CapMatrix[i][1] = farms[i].capacity;
-        else if (farms[i].type == NodeType::Alehouse) {
-            CapMatrix[i][2] = farms[i].capacity;
-			CapMatrix[2][i] = farms[i].capacity;
-        }
-
-    }
-	std::cout << "Adjacency matrix crrate:\n";
-    for (int i = 0; i < linie.size(); i++)
-    {
-        CapMatrix[linie[i].startNode][linie[i].endNode] = linie[i].getCapacity();
-        CapMatrix[linie[i].endNode][linie[i].startNode] = linie[i].getCapacity();
-    }
-    return CapMatrix;
+	return (q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x);
 }
 
-
-void printAdjMatrix(std::vector<std::vector<size_t>>& adj)
-{
-	for (int i = 0; i < adj.size(); i++)
-	{
-		for (int j = 0; j < adj[i].size(); j++)
-		{
-			std::cout <<std::setw(2)<< adj[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
-}
 
 
