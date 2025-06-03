@@ -47,8 +47,8 @@ ProjektAISD/
 ├── Button.cpp / hpp             # Klasa przycisku GUI
 ├── Convex.cpp / hpp             # Logika otoczki
 ├── Functions.cpp / hpp          # Funkcje pomocnicze, narzędziowe
-├── FileCompression.cpp / hpp    # 
-├── FlowAlgorithm.cpp / hpp      # 
+├── FileCompression.cpp / hpp    # Funkcje związane z kompresją plików
+├── FlowAlgorithm.cpp / hpp      # Obliczenia przepływów podczas tury
 ├── Game.cpp / hpp               # Główna logika gry
 ├── Line.cpp / hpp               # Klasa reprezentująca połączenie (drogę)
 ├── Menu.cpp / hpp               # Menu gry
