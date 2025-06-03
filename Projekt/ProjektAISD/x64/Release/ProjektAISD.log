@@ -1,16 +1,82 @@
 ﻿  Game.cpp
-C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'Game.cpp')
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,47): warning C4275: interfejs niebędący interfejsem dll class "std::runtime_error"użyto jako podstawowego dla interfejsu biblioteki dll class "sf::Exception"
+  (kompilowanie pliku źródłowego „Game.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
+      zobacz deklarację „std::runtime_error”
+      C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\include\SFML\System\Exception.hpp(41,23):
+      zobacz deklarację „sf::Exception”
   
-C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(193,63): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(253,67): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Generating code
-  0 of 930 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:             T=float
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:         and
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(56,77): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,115): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,115): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,115): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,115): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,115): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,88): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,88): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,88): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,88): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(61,88): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,105): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,105): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,105): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,105): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,105): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,78): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,78): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,78): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,78): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(68,78): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,105): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,105): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,105): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,105): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,105): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,78): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,78): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,78): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,78): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(72,78): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,106): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,106): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,106): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,106): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,106): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,79): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,79): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,79): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,79): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(77,79): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(113,47): warning C4244: "=": konwersja z "const char32_t" do "char", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(269,86): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(269,86): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(269,86): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(269,86): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(269,86): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(287,88): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(287,88): warning C4244:         with
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(287,88): warning C4244:         [
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(287,88): warning C4244:             T=int
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(287,88): warning C4244:         ]
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(294,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(721,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(747,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(774,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(801,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(867,79): warning C4018: ">=": niezgodność typu ze znakiem/bez znaku
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(877,41): warning C4244: "argument": konwersja z "double" do "size_t", możliwa utrata danych
+C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\ProjektAISD\Game.cpp(937,11): warning C4244: "*=": konwersja z "double" do "size_t", możliwa utrata danych
+  Trwa generowanie kodu
+  1 of 1835 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  ProjektAISD.vcxproj -> C:\Users\iwona\Documents\GitHub\AISD2_projekt\Projekt\x64\Release\ProjektAISD.exe
+    18 functions had inline decision re-evaluated but remain unchanged
+  Zakończono generowanie kodu
+  ProjektAISD.vcxproj -> C:\Users\kwiat\OneDrive\Dokumenty\GitHub\AISD2_projekt\Projekt\x64\Release\ProjektAISD.exe

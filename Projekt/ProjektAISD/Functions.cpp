@@ -62,41 +62,43 @@ void splitLine(Line ogLine, std::vector<Line>& linie, int nodeId, int lineId, st
     linia1.ConnectToNode(farms, nodeId, ogLine.startNode);
     linia1.setTexture(ogLine.getTexture());
 	linia1.SetCost(ogLine.GetCost()/2);
+    linia1.setCapacity(ogLine.getCapacity());
     linia1.setFillColor(sf::Color(255, 255, 255, 255));
     Line linia2(ogLine);
     linia2.ConnectToNode(farms, ogLine.endNode, nodeId);
 	linia2.SetCost(ogLine.GetCost()/2);
+    linia2.setCapacity(ogLine.getCapacity());
     linia1.setTexture(ogLine.getTexture());
     linia2.setFillColor(sf::Color(255, 255, 255, 255));
     linie.erase(linie.begin() + lineId);
     linie.push_back(linia1);
     linie.push_back(linia2);
 }
-void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::Shape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::Drawable* obj)
-{
-    w.clear(sf::Color::White);
-    w.setView(uiView);
-    if (!ui.empty())
-		w.draw(*ui[0]);
-
-    w.setView(view);
-
-    for (size_t i = 0; i < all.size(); i++)
-    {   
-        w.draw(*all[i]);
-    }
-    if (obj != nullptr)
-        w.draw(*obj);
-
-    w.setView(uiView);
-    for (size_t i = 1; i < ui.size(); i++)
-    {
-        w.draw(*ui[i]);
-    }
-
-    w.setView(view);
-    w.display();
-}
+//void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::Shape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::Drawable* obj)
+//{
+//    w.clear(sf::Color::White);
+//    w.setView(uiView);
+//    if (!ui.empty())
+//		w.draw(*ui[0]);
+//
+//    w.setView(view);
+//
+//    for (size_t i = 0; i < all.size(); i++)
+//    {   
+//        w.draw(*all[i]);
+//    }
+//    if (obj != nullptr)
+//        w.draw(*obj);
+//
+//    w.setView(uiView);
+//    for (size_t i = 1; i < ui.size(); i++)
+//    {
+//        w.draw(*ui[i]);
+//    }
+//
+//    w.setView(view);
+//    w.display();
+//}
 
 int HoverOverFarm(sf::RenderWindow& w, sf::View& view, const std::vector<Node> farms, int j)
 {

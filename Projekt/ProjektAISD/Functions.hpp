@@ -25,7 +25,7 @@ bool CursorNearLine(const Line& line, sf::Vector2f pos, std::vector<Node> nodes)
 void splitLine(sf::Vector2f mid, Line ogLine, std::vector<Line>& linie, int i, std::vector<Node>& farms, sf::Texture& tx);
 void splitLine(Line ogLine, std::vector<Line>& linie, int nodeId, int lineId, std::vector<Node>& farms);
 bool LineCrossing(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2f q2);
-void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::Shape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::Drawable* obj = nullptr);
+//void draw(std::vector<sf::RectangleShape*>& ui, std::vector<sf::Shape*>& all, sf::RenderWindow& w, sf::View& view, sf::View& uiView, sf::Drawable* obj = nullptr);
 int HoverOverFarm(sf::RenderWindow& w, sf::View& view, const std::vector<Node> farms, int j = -1);
 bool checkIntersection(std::vector<Line>& linie, Line& linia, std::vector<Node> nodes);
 bool checkIntersection(std::vector<Line>& linie, Node& node, std::vector<Node> nodes);

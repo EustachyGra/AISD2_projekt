@@ -51,7 +51,7 @@ Convex::Convex(sf::Vector2f pos)
 {
 	this->setPosition(pos);
 	this->setOrigin({ 0, 0 });
-	this->setFillColor(sf::Color::Black);
+	this->setFillColor(sf::Color(0, 128, 0, 128));
 	std::vector<sf::Vector2f> hull = GrahamHull(MakePoints(pos));
 	this->setPointCount(hull.size());
 	for (int i = 0; i < hull.size();i++) {
@@ -62,6 +62,7 @@ Convex::Convex(sf::Vector2f pos)
 Convex::Convex(std::vector<sf::Shape*>& all)
 {
 	srand(time(NULL));
+	this->setFillColor(sf::Color(0,128,0,128));
 	sf::Vector2f topLeft = all[0]->getGlobalBounds().position;
 	sf::Vector2f bottomRight = all[0]->getGlobalBounds().position + all[0]->getGlobalBounds().size;
 	for (size_t i = 1; i < all.size(); i++)
@@ -120,6 +121,8 @@ Convex::Convex(sf::Vector2f pos,std::vector<sf::Vector2f> points)
 	this->setPosition(pos);
 	this->setOrigin({ 0, 0 });
 	this->setPointCount(points.size());
+	this->setFillColor(sf::Color(0, 128, 0, 128));
+
 	for (int i = 0; i < points.size(); i++) {
 		this->setPoint(i, points[i]);
 		hullPoints.push_back(points[i] + pos);

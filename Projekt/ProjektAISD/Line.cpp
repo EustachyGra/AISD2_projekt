@@ -9,7 +9,7 @@ Line::Line(sf::Vector2f pos)
 	this->setOrigin({ 0, 10 });
     this->setTexture(texture.get());
     this->setPosition(pos);
-    cost = (1 + rand() % 20);
+    cost = 1 + rand() % 5;
 }
 
 Line::Line(sf::RectangleShape x)
@@ -101,10 +101,10 @@ void Line::SetRed() { this->setFillColor(red); }
 size_t Line::getCapacity() { return capacity; }
 void Line::setCapacity(size_t cap) 
 { 
-    if (cap != 0)
-        capacity = cap;
-    else
-        capacity = 1 + rand() % 50;
+   if(cap!=0)
+	   capacity = cap;
+   else
+       capacity = getSize().x + rand()%100;
 }
 void Line::setUsed(std::pair<size_t, size_t> flow)
 {

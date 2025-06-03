@@ -12,10 +12,10 @@ enum class NodeType
 class Node : public sf::RectangleShape
 {
 private:
-	size_t used;
+	size_t used=0;
 
 public:
-	size_t capacity = 50;
+	size_t capacity;
 	NodeType type;
 
     Node(sf::Window& window, NodeType typ = NodeType::Farm);
@@ -23,6 +23,8 @@ public:
 	size_t getCapacity();
 	void setCapacity(size_t cap = 0);
 	// Type management
+	bool onFertile = false;
+	void setFertile(bool fertile);
 	void setType(NodeType type);
 	NodeType getType();
 	void setUsed(size_t used);

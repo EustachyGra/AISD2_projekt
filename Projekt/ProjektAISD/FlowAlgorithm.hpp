@@ -59,7 +59,7 @@ public:
 	std::pair<size_t,size_t> Calculate();
 	
 	void printGraph();
-	std::pair<size_t, size_t> checkLine(size_t u, size_t v);
+	size_t checkLine(size_t u, size_t v);
 	size_t checkBuilding(size_t u, size_t v);
 
 

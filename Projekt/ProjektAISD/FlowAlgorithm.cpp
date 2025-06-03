@@ -21,8 +21,8 @@ FlowAlgorithm::FlowAlgorithm(size_t n) {
 }
 void FlowAlgorithm::AddEdge(size_t u, size_t v, size_t cap, long cost) {
 	Edge og = Edge(v, graph[v].size(), cap, cost); // krawedz orginalna
-	Edge rev = Edge(u, graph[u].size() - 1, 0, -cost); // krawedz odwrtona dla grafu rezydualnego
 	graph[u].push_back(og);
+	Edge rev = Edge(u, graph[u].size() - 1, 0, -cost); // krawedz odwrtona dla grafu rezydualnego
 	graph[v].push_back(rev);
 }
 
@@ -151,16 +151,16 @@ void FlowAlgorithm::printGraph() {
 	}
 }
 
-std::pair<size_t,size_t> FlowAlgorithm::checkLine(size_t u, size_t v)
+size_t FlowAlgorithm::checkLine(size_t u, size_t v)
 {
-	std::pair<size_t, size_t> output = { 0, 0 };
+	size_t output = 0;
 	for (size_t i = 0; i < graph[u].size(); i++)
 	{
 		//std::cout << "Checking edge from " << u << " to " << v << ": "<<i<<std::endl;
 		Edge& e = graph[u][i];
 		//std::cout << "Edge to: " << e.to << ", cost: " << e.cost << ", cap: " << e.cap << std::endl;
 		if (e.to == v && e.cost<0)
-			output.first = e.cap; // zwraca ile przeplywa przez linie w warstwie 1
+			output += e.cap; // zwraca ile przeplywa przez linie w warstwie 1
 	}
 	for (size_t i = 0; i < graph[u+n].size(); i++)
 	{
@@ -168,7 +168,7 @@ std::pair<size_t,size_t> FlowAlgorithm::checkLine(size_t u, size_t v)
 		Edge& e = graph[u+n][i];
 		//std::cout << "Edge to: " << e.to << ", cost: " << e.cost << ", cap: " << e.cap << std::endl;
 		if (e.to == v+n && e.cost < 0)
-			output.second = e.cap; // zwraca ile przeplywa przez linie w warstwie 1
+			output += e.cap; // zwraca ile przeplywa przez linie w warstwie 1
 	}
 	return output;
 }
