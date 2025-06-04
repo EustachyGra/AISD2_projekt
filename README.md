@@ -103,7 +103,7 @@ ProjektAISD/
 5. Zapis danych do pliku - efektywne oszczędzanie pamięci i kompresja danych gry - kodowanie Huffmana.
    $O(n\log n)$,     $n=\text{ilość unikalnych znaków}$
 6. Szukanie wzorca w tekście - szybkie powracanie do informacji z poprzednich tur - algorytm Boyera-Moore'a.
-   $O(n/m)$ \text{w najlepszym przypadku; w najgorszym} O(n\cdots m)$,     $n=\text{długość tekstu}$, $m=\text{długość wzorca}$
+   $O(n/m) \text{w najlepszym przypadku; w najgorszym} O(n\cdots m)$,     $n=\text{długość tekstu}$, $m=\text{długość wzorca}$
 
 <br>
 
