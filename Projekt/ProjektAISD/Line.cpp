@@ -9,7 +9,6 @@ Line::Line(sf::Vector2f pos)
 	this->setOrigin({ 0, 10 });
     this->setTexture(texture.get());
     this->setPosition(pos);
-    cost = 1 + rand() % 5;
 }
 
 Line::Line(sf::RectangleShape x)
@@ -114,5 +113,11 @@ std::pair<size_t, size_t> Line::getUsed()
 {
 	return used;
 }
-size_t Line::GetCost() { return cost; };
-void Line::SetCost(size_t n_cost) { cost = n_cost; }
+size_t Line::GetCost() 
+{ 
+    return cost;
+};
+void Line::SetCost(size_t n_cost)
+{ 
+    cost = n_cost;
+}

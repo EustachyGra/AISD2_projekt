@@ -20,6 +20,7 @@ class Menu
 public:
 	Menu(sf::RenderWindow& window);
 	void run();
+	~Menu();
 
 };
 

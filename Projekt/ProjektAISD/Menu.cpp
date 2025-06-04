@@ -116,3 +116,8 @@ void Menu::run()
 		window.display();
 	}
 }
+
+Menu::~Menu()
+{
+	delete error;
+}

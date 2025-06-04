@@ -175,8 +175,6 @@ size_t FlowAlgorithm::checkLine(size_t u, size_t v)
 
 size_t FlowAlgorithm::checkBuilding(size_t u, size_t v)
 {
-	std::cout << source << " " << sink << std::endl;
-	std::cout << "Checking building from " << u << " to " << v << std::endl;
 	for (size_t i = 0; i < graph[u].size(); i++)
 	{
 		Edge& e = graph[u][i];

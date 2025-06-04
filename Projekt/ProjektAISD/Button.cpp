@@ -52,6 +52,7 @@ Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string st
 	text2->setPosition(getPosition() + sf::Vector2f{ 0,getSize().y });
 }
 
+
 bool Button::isMouseOver(sf::Vector2f pos)
 {
 	return getGlobalBounds().contains(pos);

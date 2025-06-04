@@ -10,38 +10,38 @@ Game::Game(sf::RenderWindow& window, sf::Font& ft, bool load)
 
 
 	if (!(tx_farm.loadFromFile("Textury/farm_p3.png"))) {
-		throw std::string("Brak pliku tekstur farmy!\n\'Textury/farm_p3.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/farm_p3.png\'");
 	}
 	if (!(tx_tav.loadFromFile("Textury/tavern_p3.png"))) {
-		throw std::string("Brak pliku tekstur tawerny!\n\'Textury/tavern_p3.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/tavern_p3.png\'");
 	}
 	if (!(tx_ale.loadFromFile("Textury/browar.png"))) {
-		throw std::string("Brak pliku tekstur browara!\n\'Textury/browar.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/browar.png\'");
 	}
 	if (!(tx_road.loadFromFile("Textury/raodv4.png"))) {
-		throw std::string("Brak pliku tekstur drogi!\n\'Textury/raodv2.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/raodv2.png\'");
 	}
 	if (!(tx_cross.loadFromFile("Textury/cross.png"))) {
-		throw std::string("Brak pliku tekstur skrzyzowania!\n\'Textury/cross.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/cross.png\'");
 	}
 	if (!(tx_cancel.loadFromFile("Textury/canclev2.png"))) {
-		throw std::string("Brak pliku tekstur anulowania!\n\'Textury/canclev2.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/canclev2.png\'");
 	}
 	if (!(tx_stats.loadFromFile("Textury/stats.png"))) {
-		throw std::string("Brak tekstur ikony statystyk!\n\'Textury/stats.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/stats.png\'");
 	}
 	if (!(tx_save.loadFromFile("Textury/save.png"))) {
-		throw std::string("Brak tekstur ikony zapisu!\n\'Textury/save.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/save.png\'");
 	}
 	if (!(tx_turn.loadFromFile("Textury/turn.png"))) {
-		throw std::string("Brak tekstur ikony konca tury!\n\'Textury/turn.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/turn.png\'");
 	}
 	if (!(tx_mob.loadFromFile("Textury/mob.png"))) {
-		throw std::string("Brak tekstur ikony wiadomosci koncowej!\n\'Textury/mob.png\'");
+		throw std::string("Coulbn't load texture!\n\'Textury/mob.png\'");
 	}
 	if (!(bg_texture.loadFromFile("Textury/grass3.png")))
 	{
-		throw std::string("Brak pliku tekstur tla!");
+		throw std::string("Coulbn't load texture!\n'Textury/mob.png");
 	}
 
 
@@ -88,6 +88,10 @@ Game::~Game()
 	ui.clear();
 	farms.clear();
 	linie.clear();
+	convexes.clear();
+	delete statsBox;
+	delete message;
+	delete upgrade;
 	std::cout << "Game destroyed" << std::endl;
 	// window.close(); // Uncomment if you want to close the window when the game is destroyed
 }
@@ -257,7 +261,7 @@ void Game::handleMouseInput() {
 			int tmp = HoverOverFarm(window, view, farms);
 			if (tmp != -1) {
 				if (farms[tmp].getType() == NodeType::Crossroad) return; // Cannot upgrade crossroads
-				std::string up_str = "Used capacity: " + std::to_string(farms[tmp].getUsed()) +
+				std::string up_str = "Used capacity: " + std::to_string(farms[tmp].getUsed()) +"/"+ std::to_string(farms[tmp].capacity) +
 					"\nFarm capacity: " + std::to_string(farms[tmp].getCapacity()) + "->" + std::to_string(size_t(farms[tmp].getCapacity() * 1.2));
 
 				if (farms[tmp].getType() == NodeType::Farm)
@@ -276,7 +280,7 @@ void Game::handleMouseInput() {
 				if (linie[i].getGlobalBounds().contains(mousePos))
 					if (CursorNearLine(linie[i], mousePos, farms))
 					{
-						std::string up_str = "Used capacity:  1->2: " + std::to_string(linie[i].getUsed().first) + "\t 2->1: " + std::to_string(linie[i].getUsed().second) +
+						std::string up_str = "Used capacity:  1->2: " + std::to_string(linie[i].getUsed().first) + "/" + std::to_string(linie[i].getCapacity()) + "\t 2->1: " + std::to_string(linie[i].getUsed().second) + "/" + std::to_string(linie[i].getCapacity()) +
 							"\nUpgrade capacity: "
 							+ std::to_string(linie[i].getCapacity()) + "->" + std::to_string(size_t(linie[i].getCapacity() * 1.2)) +
 							", Lower cost: $"
@@ -395,9 +399,8 @@ void Game::handleMouseInput() {
 				// std::cout << "Setting line color to white." << std::endl; // Debugging line
 
 				linia.ConnectToNode(farms);
-				linia.setFillColor(sf::Color(255, 255, 255, 255));
-				/* linia.setOutlineColor(sf::Color::Black);
-				 linia.setOutlineThickness(2);*/
+				linia.setFillColor(sf::Color::White);
+				linia.SetCost(1 + rand() % 5);
 				linia.setCapacity();
 				linia.setTexture(&tx_road);
 				linie.push_back(linia);
@@ -418,7 +421,6 @@ void Game::handleMouseInput() {
 				}
 				//std::cout << "Cannot place line, color not set to white." << std::endl; // Debugging line
 			}
-			std::cout << farms.size() << std::endl;
 
 		}
 		else if (placeMode > 1)
@@ -484,42 +486,43 @@ void Game::handleMouseInput() {
 
 	}
 
+	//if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)) {
+	//	// Logika dla prawego przycisku myszy
+	//	 /*sf::Vector2f cr = MousePosView(window, view);
+	//		sf::sleep(sf::milliseconds(10));
+	//		sf::Vector2f mv = MousePosView(window, view) - cr;
+	//		for (int i = 0; i < all.size(); i++)
+	//		{
+	//			all[i]->move(sf::Vector2f(mv));
+	//		}
+	//		sf::sleep(sf::milliseconds(100));*/
+	//	for (int i = 0; i < linie.size(); i++)
+	//	{
+	//		if (linie[i].getGlobalBounds().contains(MousePosView(window, view)))
+	//		{
+	//			if (CursorNearLine(linie[i], MousePosView(window, view), farms))
+	//			{
+	//				size_t tmpC, tmpK;
+	//				std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << ": ";
+	//				std::cin >> tmpC >> tmpK;
+	//				linie[i].setCapacity(tmpC);
+	//				linie[i].SetCost(tmpK);
+	//			}
+	//		}
+	//	}
+	//	for (int i = 0; i < linie.size(); i++)
+	//	{
+	//		std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << std::endl;
+	//	}
+	//}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
-		// Logika dla prawego przycisku myszy
-		 /*sf::Vector2f cr = MousePosView(window, view);
-			sf::sleep(sf::milliseconds(10));
-			sf::Vector2f mv = MousePosView(window, view) - cr;
-			for (int i = 0; i < all.size(); i++)
-			{
-				all[i]->move(sf::Vector2f(mv));
-			}
-			sf::sleep(sf::milliseconds(100));*/
-		for (int i = 0; i < linie.size(); i++)
-		{
-			if (linie[i].getGlobalBounds().contains(MousePosView(window, view)))
-			{
-				if (CursorNearLine(linie[i], MousePosView(window, view), farms))
-				{
-					size_t tmpC, tmpK;
-					std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << ": ";
-					std::cin >> tmpC >> tmpK;
-					linie[i].setCapacity(tmpC);
-					linie[i].SetCost(tmpK);
-				}
-			}
-		}
-		for (int i = 0; i < linie.size(); i++)
-		{
-			std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << std::endl;
-		}
-	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)) {
 		sf::Vector2f current = MousePosView(window, view);
 		if (!dragging) {
 			lastMousePos = current;
 			dragging = true;
 		}
 		sf::Vector2f delta = current - lastMousePos;
+		UpdateAll();
 		for (int i = 0; i < all.size(); i++) {
 			all[i]->move(delta);
 		}
@@ -910,9 +913,11 @@ void Game::TurnEnd()
 		message->setOutlineThickness(2);
 		return;
 	}
+	
 	if (delivery.first < quota)
 	{
 		message = new Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), view), { 400,400 }, font, "You haven't delivered your quota.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!");
+		message->text2->setOutlineThickness(4);
 		message->TextUpdate("You haven't fulfilled your quota.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!", true, true, 29);
 		message->setOutlineColor(sf::Color::Black);
 		message->setOutlineThickness(2);
@@ -920,12 +925,14 @@ void Game::TurnEnd()
 		message->setTexture(&tx_mob);
 		return; // Not enough ale delivered
 	}
-	turn++;
-	cash += delivery.first * 10; // Add the total delivery to cash
-	cash -= delivery.second; // Subtract the total cost from cash
-	if (cash < 0)
+	long long tmp_cash = cash; // Temporary cash to check for bankruptcy;
+	tmp_cash += delivery.first * 11;
+	tmp_cash -= delivery.second;
+	if (tmp_cash< 0)
 	{
+		cash_txt.TextUpdate("Bank: $" + std::to_string(tmp_cash));
 		message = new Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), view), { 400,400 }, font, "You bankrupted the city.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!");
+		message->text2->setOutlineThickness(4);
 		message->TextUpdate("You bankrupted the city.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!", true, true, 29);
 		message->setOutlineColor(sf::Color::Black);
 		message->setOutlineThickness(2);
@@ -933,7 +940,20 @@ void Game::TurnEnd()
 		message->setTexture(&tx_mob);
 		return; // Not enough cash
 	}
-
+	else
+	{
+		std::string output = "You have successfully delivered " + std::to_string(delivery.first) + " barrels of ale.\n" +
+			"You have earned $" + std::to_string(delivery.first * 11) + " but spent $" + std::to_string(delivery.second) + " on roads maintenance.\n" +
+			"You have fulfilled your quota of " + std::to_string(quota) + " barrels.";
+		message = new Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), view), { 0,400 }, font, output);
+		message->setOutlineColor(sf::Color::Yellow);
+		message->setOutlineThickness(2);
+		message->setFillColor(sf::Color::Blue);
+		message->SetPosAll(message->getPosition() - message->getSize() / 2.0f);
+	}
+	
+	turn++;
+	cash = tmp_cash;
 	quota *= 1.35;
 	for (size_t i = 0; i < linie.size(); i++)
 	{
