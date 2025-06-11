@@ -94,7 +94,7 @@ ProjektAISD/
 
 1. Przepływ w sieci - obliczanie maksymalnego przepływu z minimalnym kosztem - algorytm Busackera-Gowena; w implementacji do symulacji przejścia od farm do karczm przez piwiarnie problem został podzielony na dwie warstwy. Wyznaczane są przepływy z farm do piwiarni, a następnie z piwiarni do karczm.
    $O(F\cdot T)$;     $T=O((V + E) log V)$, $F=\text{iteracje pętli}$
-2. Wyznaczanie drogi przepływu - znalezienie najszybszej drogi do karczmy - algorytm Dijkstry z rozszerzony o potencjały.
+2. Wyznaczanie drogi przepływu - znalezienie najszybszej drogi do karczmy - algorytm Dijkstry rozszerzony o potencjały.
    $O((V + E) log V)$
 3. Otoczki wypukłe - do tworzenia pola i wzmacnianie plonów farm - algorytm Grahama.
    $O(n\log n)$,     $n=15$
@@ -103,7 +103,7 @@ ProjektAISD/
 5. Zapis danych do pliku - efektywne oszczędzanie pamięci i kompresja danych gry - kodowanie Huffmana.
    $O(n\log n)$,     $n=\text{ilość unikalnych znaków}$
 6. Szukanie wzorca w tekście - szybkie powracanie do informacji z poprzednich tur - algorytm Boyera-Moore'a.
-   $O(n\cdot m)$,     $n=\text{długość tekstu}$, $m=\text{długość wzorca}$
+   $O(n/m)$ średnio; $O(n+m)$ pesymistycznie,     $n=\text{długość tekstu}$, $m=\text{długość wzorca}$
 
 <br>
 
@@ -113,6 +113,7 @@ ProjektAISD/
 2.	Interakcja użytkownika: Użytkownik może dodawać budynki i drogi, zmieniać tryby za pomocą przycisków, przesuwać widok, zapisywać/wczytywać grę.
 3.	Symulacja: Po zakończeniu tury uruchamiany jest algorytm przepływu, który oblicza dostawy i koszty.
 4.	Zapis/Wczytanie: Stan gry (budynki, drogi, statystyki) jest kompresowany i zapisywany do pliku, a następnie może być odczytany.
+5. Przegrana: Warunkiem zakończenia gry jest niedostarczenie wymaganej ilości piwa podczas tury.
 
 <br>
 
