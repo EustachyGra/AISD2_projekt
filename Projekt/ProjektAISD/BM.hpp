@@ -8,6 +8,7 @@
 #include <algorithm> 
 #include <unordered_map> 
 
-std::unordered_map<char, int> przygotujMapeOstatnichWystapien(const std::string& wzorzec);
-bool szukajWzorcaBoyerMoore(const std::string& tekst, const std::string& wzorzec, std::unordered_map<char, int> ostatnieWystapienie);
+std::unordered_map<char, int> buildBadChar(const std::string& pattern);
+std::vector<int> buildGoodSuffix(const std::string& pattern);
+bool boyerMoore(const std::string& text, const std::string& pattern, std::unordered_map<char, int> badChar, std::vector<int> goodSuffix);
 #endif // BM

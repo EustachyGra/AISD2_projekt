@@ -1,41 +1,66 @@
 #include "BM.hpp"
-std::unordered_map<char, int> przygotujMapeOstatnichWystapien(const std::string& wzorzec) {
-    std::unordered_map<char, int> mapa; 
-    for (int i = 0; i < wzorzec.size(); i++) {
-        mapa[wzorzec[i]] = i;
+std::unordered_map<char, int> buildBadChar(const std::string& pattern) {
+    std::unordered_map<char, int> badChar;
+    for (int i = 0; i < (int)pattern.size(); ++i) {
+        badChar[pattern[i]] = i;
     }
-    return mapa;
+    return badChar;
 }
 
-bool szukajWzorcaBoyerMoore(const std::string& tekst, const std::string& wzorzec, std::unordered_map<char, int> ostatnieWystapienie) {
+// Preprocessing good-suffix heuristic
+std::vector<int> buildGoodSuffix(const std::string& pattern) {
+    int m = pattern.size();
+    std::vector<int> suffix(m + 1);
+    std::vector<int> goodShift(m + 1);
 
-    if (wzorzec.empty() || tekst.empty() || wzorzec.size() > tekst.size()) {
-        return false;
+    // Step 1: compute suffix lengths
+    suffix[m] = m + 1;
+    int g = m;
+    int f = 0;
+    for (int i = m; i > 0; --i) {
+        while (g <= m && pattern[i - 1] != pattern[g - 1]) {
+            g = suffix[g];
+        }
+        g--;
+        suffix[i - 1] = g;
     }
 
-    int dlugoscTekstu = tekst.size();
-    int dlugoscWzorca = wzorzec.size();
-    int indeksTekstu = 0;
-    while (indeksTekstu <= dlugoscTekstu - dlugoscWzorca) {
-        int indeksWzorca = dlugoscWzorca - 1;
+    // Step 2: initialize shifts to m
+    std::fill(goodShift.begin(), goodShift.end(), m);
 
-
-        while (indeksWzorca >= 0 && wzorzec[indeksWzorca] == tekst[indeksTekstu + indeksWzorca]) {
-            indeksWzorca--; 
+    // Step 3: fill shifts based on suffixes
+    for (int i = 0; i <= m; ++i) {
+        int j = m - suffix[i];
+        if (goodShift[j] > i - suffix[i]) {
+            goodShift[j] = i - suffix[i];
         }
+    }
+    return goodShift;
+}
 
-        if (indeksWzorca < 0) {
-            return true;
+// Boyer-Moore search using both heuristics
+bool boyerMoore(const std::string& text, const std::string& pattern, std::unordered_map<char, int> badChar, std::vector<int> goodSuffix) {
+    if (pattern.empty() || text.size() < pattern.size()) return false;
 
+    int n = text.size();
+    int m = pattern.size();
+
+
+    int s = 0; // shift of the pattern with respect to text
+    while (s <= n - m) {
+        int j = m - 1;
+        while (j >= 0 && pattern[j] == text[s + j]) {
+            --j;
+        }
+        if (j < 0) {
+            return true;  // match found at shift s
         }
         else {
-
-            char zlyZnak = tekst[indeksTekstu + indeksWzorca];
-            int indeksOstatniegoWystapieniaWzorcu = ostatnieWystapienie.count(zlyZnak) ? ostatnieWystapienie[zlyZnak] : -1;
-            int przesuniecie = indeksWzorca - indeksOstatniegoWystapieniaWzorcu;
-            indeksTekstu += std::max(1, przesuniecie);
+            char bad = text[s + j];
+            int bcShift = j - (badChar.count(bad) ? badChar[bad] : -1);
+            int gsShift = goodSuffix[j + 1];
+            s += std::max(1, std::max(bcShift, gsShift));
         }
     }
-
     return false;
 }

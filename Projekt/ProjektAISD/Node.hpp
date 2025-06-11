@@ -17,7 +17,7 @@ private:
 public:
 	size_t capacity;
 	NodeType type;
-
+	bool canPlace = false;
     Node(sf::Window& window, NodeType typ = NodeType::Farm);
     Node(sf::Vector2f pos);
 	size_t getCapacity();

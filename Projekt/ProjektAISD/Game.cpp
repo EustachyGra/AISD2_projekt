@@ -58,10 +58,10 @@ Game::Game(sf::RenderWindow& window, sf::Font& ft, bool load)
 	std::cout << std::string(ale_txt.text2->getString()) << std::endl;
 
 
-	buildButtons.push_back(Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.02, window.getSize().y * 0.9), uiView), { 50,50 }, ft, "$100", tx_road, tx_cancel));
-	buildButtons.push_back(Button(buildButtons[0].getPosition() + sf::Vector2f(50, -25), buildButtons[0].getSize(), ft, "$200", tx_farm, tx_cancel));
-	buildButtons.push_back(Button(buildButtons[1].getPosition() + sf::Vector2f(50, -25), { 50,50 }, ft, "$150", tx_ale, tx_cancel));
-	buildButtons.push_back(Button(buildButtons[2].getPosition() + sf::Vector2f(50, -25), { 50,50 }, ft, "$150", tx_tav, tx_cancel));
+	buildButtons.push_back(Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.02, window.getSize().y * 0.9), uiView), { 50,50 }, ft, "Road", "$100", tx_road, tx_cancel));
+	buildButtons.push_back(Button(buildButtons[0].getPosition() + sf::Vector2f(60, -25), buildButtons[0].getSize(), ft, "Farm", "$200", tx_farm, tx_cancel));
+	buildButtons.push_back(Button(buildButtons[1].getPosition() + sf::Vector2f(60, -25), { 50,50 }, ft, "Alehouse", "$150", tx_ale, tx_cancel));
+	buildButtons.push_back(Button(buildButtons[2].getPosition() + sf::Vector2f(60, -25), { 50,50 }, ft, "Tavern", "$150", tx_tav, tx_cancel));
 
 
 
@@ -69,15 +69,19 @@ Game::Game(sf::RenderWindow& window, sf::Font& ft, bool load)
 	turnButton.setTexture(&tx_turn);
 	turnButton.setOutlineColor(sf::Color::Black);
 	turnButton.setOutlineThickness(2);
-	saveButton = Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.95, window.getSize().y * 0.95), uiView), { 50, 50 }, ft, "");
+	saveButton = Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.93, window.getSize().y * 0.95), uiView), { 50, 50 }, ft, "");
 	saveButton.setTexture(&tx_save);
 	saveButton.setFillColor(sf::Color(34, 118, 255));
 	saveButton.setOutlineColor(sf::Color::Black);
 	saveButton.setOutlineThickness(2);
-	statsButton = Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.92, window.getSize().y * 0.95), uiView), { 50, 50 }, ft, "");
+	statsButton = Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.90, window.getSize().y * 0.95), uiView), { 50, 50 }, ft, "");
 	statsButton.setTexture(&tx_stats);
 	statsButton.setOutlineColor(sf::Color::Black);
 	statsButton.setOutlineThickness(2);
+	endButton = Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.96, window.getSize().y * 0.95), uiView), { 50, 50 }, ft, "Quit");
+	endButton.setFillColor(sf::Color::Red);
+	endButton.setOutlineColor(sf::Color::Black);
+	endButton.setOutlineThickness(2);
 	if (load)
 		LoadGame();
 }
@@ -92,12 +96,14 @@ Game::~Game()
 	delete statsBox;
 	delete message;
 	delete upgrade;
+	delete newLine;
+	delete newNode;
 	std::cout << "Game destroyed" << std::endl;
 	// window.close(); // Uncomment if you want to close the window when the game is destroyed
 }
 
 void Game::run() {
-	while (window.isOpen()) {
+	while (window.isOpen() and !endGame) {
 		processEvents();
 		update();
 		render();
@@ -123,12 +129,13 @@ void Game::processEvents() {
 						std::string line, output = "";
 						std::transform(input.begin(), input.end(), input.begin(), [](char c) {return std::tolower(c); });
 						std::istringstream isStats(stats);
-						std::unordered_map<char, int> inputMap = przygotujMapeOstatnichWystapien(input);
+						std::vector<int> goodSuffix = buildGoodSuffix(input);
+						std::unordered_map<char, int> badCharMap = buildBadChar(input);
 						while (std::getline(isStats, line))
 						{
 							std::string origial = line;
 							std::transform(line.begin(), line.end(), line.begin(), [](char c) {return std::tolower(c); });
-							if (szukajWzorcaBoyerMoore(line, input, inputMap))
+							if (boyerMoore(line, input, badCharMap, goodSuffix))
 								output += origial + "\n"; // Append original line to output if it matches the input pattern
 						}
 						std::cout << "Searching for: " << input << std::endl;
@@ -191,9 +198,6 @@ void Game::UpdateAll()
 
 
 void Game::render(sf::RectangleShape* obj) {
-	//UpdateAll();
-	//draw(ui, all, window, view, uiView);
-
 	window.clear(sf::Color::White);
 	window.setView(uiView);
 	window.draw(background);
@@ -211,14 +215,18 @@ void Game::render(sf::RectangleShape* obj) {
 	{
 		window.draw(farms[i]);
 	}
+	if (newLine != nullptr)
+	{
+		window.draw(*newLine);
+	}
+	if (newNode != nullptr)
+	{
+		window.draw(*newNode);
+	}
 	if (obj != nullptr)
 		window.draw(*obj);
 
 	window.setView(uiView);
-	for (size_t i = 0; i < buildButtons.size(); i++)
-	{
-		buildButtons[i].draw(window, uiView);
-	}
 	cash_txt.draw(window, uiView);
 	ale_txt.draw(window, uiView);
 
@@ -229,12 +237,18 @@ void Game::render(sf::RectangleShape* obj) {
 		message->draw(window, uiView);
 	}
 	if (upgrade != nullptr) {
-		upgrade->draw(window, uiView);
+		upgrade->draw(window, uiView, view);
 	}
 	statsButton.draw(window, uiView);
-	saveButton.draw(window, uiView);
-	turnButton.draw(window, uiView);
-
+	endButton.draw(window, uiView);
+	if (lost == false) {
+		for (size_t i = 0; i < buildButtons.size(); i++)
+		{
+			buildButtons[i].draw(window, uiView);
+		}
+		saveButton.draw(window, uiView);
+		turnButton.draw(window, uiView);
+	}
 	window.setView(view);
 	window.display();
 	sf::sleep(sf::milliseconds(50));
@@ -254,156 +268,42 @@ void Game::handleMouseInput() {
 		return;
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-		if (ButtonHandler())
-			return;
-		if (placeMode == 0)
+		LeftMouseClick();
+	}
+	else
+	{
+		if (newLine != nullptr)
 		{
-			int tmp = HoverOverFarm(window, view, farms);
-			if (tmp != -1) {
-				if (farms[tmp].getType() == NodeType::Crossroad) return; // Cannot upgrade crossroads
-				std::string up_str = "Used capacity: " + std::to_string(farms[tmp].getUsed()) +"/"+ std::to_string(farms[tmp].capacity) +
-					"\nFarm capacity: " + std::to_string(farms[tmp].getCapacity()) + "->" + std::to_string(size_t(farms[tmp].getCapacity() * 1.2));
-
-				if (farms[tmp].getType() == NodeType::Farm)
-					cost = 200;
-				else
-					cost = 150;
-				upgrade_id = tmp;
-				upgrade_type = 1;
-				upgrade = new UpgradeBox(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.5, 0), uiView), { 0, 0 }, font, up_str, farms[tmp].getPosition(), farms[tmp].getSize());
-				sf::sleep(sf::milliseconds(250));
-				return;
-			}
-			sf::Vector2f mousePos = MousePosView(window, view);
-			for (size_t i = 0; i < linie.size(); i++)
-			{
-				if (linie[i].getGlobalBounds().contains(mousePos))
-					if (CursorNearLine(linie[i], mousePos, farms))
-					{
-						std::string up_str = "Used capacity:  1->2: " + std::to_string(linie[i].getUsed().first) + "/" + std::to_string(linie[i].getCapacity()) + "\t 2->1: " + std::to_string(linie[i].getUsed().second) + "/" + std::to_string(linie[i].getCapacity()) +
-							"\nUpgrade capacity: "
-							+ std::to_string(linie[i].getCapacity()) + "->" + std::to_string(size_t(linie[i].getCapacity() * 1.2)) +
-							", Lower cost: $"
-							+ std::to_string(linie[i].GetCost()) + "->" + std::to_string((linie[i].GetCost() > 0) ? (linie[i].GetCost() - 1) : 0);
-						cost = 100;
-						upgrade_id = i;
-						upgrade_type = 0;
-						upgrade = new UpgradeBox(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.5, 0), uiView), { 0, 0 }, font, up_str, &farms, linie[i].startNode, linie[i].endNode);
-						sf::sleep(sf::milliseconds(250));
-						return;
-					}
-			}
-		}
-		if (placeMode == 1) {
-			if (cost > cash) {
-				for (int i = 0; i < buildButtons.size(); i++)
+			if (newLine->CanPlace) {
+				if (newLine->freePlace)
 				{
-					buildButtons[i].ResetTx();
-					placeMode = 0;
-				}
-				return;
-			}
-			int tmp;
-			sf::Vector2f cp;
-			bool L2L = false;
-			Line linia;
-			if ((tmp = HoverOverFarm(window, view, farms)) != -1)
-			{
-				linia = Line({ float(farms[tmp].getPosition().x), float(farms[tmp].getPosition().y) });
-				linia.startNode = tmp;
-			}
-			else
-			{
-				if (linie.size() == 0) return;
-				cp = closestPointOnLine(farms[linie[0].startNode].getPosition(), farms[linie[0].endNode].getPosition(), MousePosView(window, view));
-				MemCP mem(-1, INFINITY, { 0,0 });
-				for (int i = 0; i < linie.size(); i++)
-				{
-					if (!CursorNearLine(linie[i], MousePosView(window, view), farms)) continue;
-					cp = closestPointOnLine(farms[linie[i].startNode].getPosition(), farms[linie[i].endNode].getPosition(), MousePosView(window, view));
-					if (dl(cp, MousePosView(window, view)) < mem.dist)
-					{
-						mem = MemCP(i, dl(cp, MousePosView(window, view)), cp);
-					}
-				}
-				if (mem.i == -1) return;
-				Node crossroad(mem.pos);
-				crossroad.setTexture(&tx_cross);
-				farms.push_back(crossroad);
-				linia = Line(crossroad.getPosition());
-				linia.startNode = farms.size() - 1;
-				linia.startLine = mem.i;
-				L2L = true;
-			}
-			while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				//sf::sleep(sf::milliseconds(100));
-				linia.Reset();
-				linia.FollowMouse(MousePosView(window, view));
-				tmp = HoverOverFarm(window, view, farms, (int)linia.startNode);
-
-				if (tmp != -1)
-				{
-					linia.ConnectToNode(farms, tmp);
-				}
-				if (tmp == -1 && !(linia.SnapToLine(linie, farms, MousePosView(window, view))))
-				{
-					linia.CanPlace = true;
-					linia.freePlace = true;
-				}
-
-				if (linia.CanPlace)
-				{
-					if (linia.freePlace) {
-						Node tmp = Node(linia.getPosEnd());
-						if (checkIntersection(linie, tmp, farms))
-						{
-							linia.SetRed();
-							linia.CanPlace = false;
-						}
-
-					}
-
-					if (checkIntersection(linie, linia, farms))
-					{
-						linia.SetRed();
-						linia.CanPlace = false;
-					}
-				}
-				render(&linia);
-				// std::cout << "Creating line with start node: " << linia.startNode << std::endl; // Debugging line
-
-			}
-			if (linia.CanPlace)
-			{
-				if (linia.freePlace)
-				{
-					Node tmp = Node(linia.getPosEnd());
+					Node tmp = Node(newLine->getPosEnd());
 					tmp.setTexture(&tx_cross);
 					farms.push_back(tmp);
-					linia.ConnectToNode(farms, farms.size() - 1);
+					newLine->ConnectToNode(farms, farms.size() - 1);
 
 				}
-				if (L2L)
+				if (newLine->L2L)
 				{
-					if (linia.startLine < linia.CollideWith)
+					if (newLine->startLine < newLine->CollideWith)
 					{
-						linia.CollideWith -= 1;
+						newLine->CollideWith -= 1;
 					}
-					splitLine(linie[linia.startLine], linie, (int)linia.startNode, linia.startLine, farms);
+					splitLine(linie[newLine->startLine], linie, (int)newLine->startNode, newLine->startLine, farms);
 				}
-				if (linia.CollideWith != -1)
+				if (newLine->CollideWith != -1)
 				{
-					splitLine(linia.getPosEnd(), linie[linia.CollideWith], linie, linia.CollideWith, farms, tx_cross);
-					linia.endNode = farms.size() - 1;
+					splitLine(newLine->getPosEnd(), linie[newLine->CollideWith], linie, newLine->CollideWith, farms, tx_cross);
+					newLine->endNode = farms.size() - 1;
 				}
 				// std::cout << "Setting line color to white." << std::endl; // Debugging line
 
-				linia.ConnectToNode(farms);
-				linia.setFillColor(sf::Color::White);
-				linia.SetCost(1 + rand() % 5);
-				linia.setCapacity();
-				linia.setTexture(&tx_road);
-				linie.push_back(linia);
+				newLine->ConnectToNode(farms);
+				newLine->setFillColor(sf::Color::White);
+				newLine->SetCost(1 + rand() % 5);
+				newLine->setCapacity();
+				newLine->setTexture(&tx_road);
+				linie.push_back(*newLine);
 				cash -= cost;
 				cash_txt.TextUpdate("Bank: $" + std::to_string(cash));
 				saveButton.setFillColor(sf::Color(34, 118, 255));
@@ -415,75 +315,29 @@ void Game::handleMouseInput() {
 			}
 			else
 			{
-				if (L2L)
+				if (newLine->L2L)
 				{
 					farms.pop_back();
 				}
 				//std::cout << "Cannot place line, color not set to white." << std::endl; // Debugging line
 			}
-
+			delete newLine;
+			newLine = nullptr;
 		}
-		else if (placeMode > 1)
+		if (newNode != nullptr)
 		{
-			bool canPlace = false;
-			Node farm(window, placeType);
-			switch (placeMode)
-			{
-			case 2:
-				farm.setTexture(&tx_farm);
-				break;
-			case 3:
-				farm.setTexture(&tx_ale);
-				break;
-			case 4:
-				farm.setTexture(&tx_tav);
-				break;
-			default:
-				break;
-			}
-			while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-			{
-				farm.setPosition(MousePosView(window, view));
-				render(&farm);
-				if (checkIntersection(linie, farm, farms))
-				{
-					farm.setFillColor(sf::Color(255, 0, 0, 160));
-					canPlace = false;
-				}
-				else
-				{
-					canPlace = true;
-					farm.setFillColor(sf::Color(155, 255, 58));
-					if (farm.type == NodeType::Farm)
-					{
-						bool fertile = false;
-						for (int i = 0; i < convexes.size(); i++)
-						{
-							if (convexes[i].Contains(farm.getPosition()))
-							{
-								std::cout << "Farm placed inside convex hull." << std::endl;
-								farm.setFillColor(sf::Color::Green);
-								fertile = true;
-								break;
-							}
-						}
-						farm.setFertile(fertile);
-					}
-
-				}
-			}
-			if (canPlace) {
-				farm.setFillColor(sf::Color::White);
-				farm.setCapacity();
-				farms.push_back(farm);
+			if (newNode->canPlace) {
+				newNode->setFillColor(sf::Color::White);
+				newNode->setCapacity();
+				farms.push_back(*newNode);
 				saveButton.setFillColor(sf::Color(34, 118, 255));
 				cash -= cost;
 				cash_txt.TextUpdate("Bank: $" + std::to_string(cash));
 
 			}
+			delete newNode;
+			newNode = nullptr;
 		}
-		//sf::sleep(sf::milliseconds(100));
-
 	}
 
 	//if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)) {
@@ -526,11 +380,193 @@ void Game::handleMouseInput() {
 		for (int i = 0; i < all.size(); i++) {
 			all[i]->move(delta);
 		}
+		if (newLine != nullptr) {
+			newLine->move(delta);
+		}
+		if (upgrade != nullptr) {
+			upgrade->move(delta);
+		}
 		lastMousePos = current;
+
 	}
 	else {
 		dragging = false;
 	}
+}
+
+void Game::LeftMouseClick()
+{
+	if (ButtonHandler())
+		return;
+	if (placeMode == 0) //upgrade
+	{
+		int tmp = HoverOverFarm(window, view, farms);
+		if (tmp != -1) {
+			if (farms[tmp].getType() == NodeType::Crossroad) return; // Cannot upgrade crossroads
+			std::string up_str = "Used capacity: " + std::to_string(farms[tmp].getUsed()) + "/" + std::to_string(farms[tmp].capacity) +
+				"\nFarm capacity: " + std::to_string(farms[tmp].getCapacity()) + "->" + std::to_string(size_t(farms[tmp].getCapacity() * 1.2));
+
+			if (farms[tmp].getType() == NodeType::Farm)
+				cost = 200;
+			else
+				cost = 150;
+			upgrade_id = tmp;
+			upgrade_type = 1;
+			upgrade = new UpgradeBox(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.5, 0), uiView), { 0, 0 }, font, up_str, farms[tmp].getPosition(), farms[tmp].getSize());
+			sf::sleep(sf::milliseconds(250));
+			return;
+		}
+		sf::Vector2f mousePos = MousePosView(window, view);
+		for (size_t i = 0; i < linie.size(); i++)
+		{
+			if (linie[i].getGlobalBounds().contains(mousePos))
+				if (CursorNearLine(linie[i], mousePos, farms))
+				{
+					std::string up_str = "Used capacity:  1->2: " + std::to_string(linie[i].getUsed().first) + "/" + std::to_string(linie[i].getCapacity()) + "\t 2->1: " + std::to_string(linie[i].getUsed().second) + "/" + std::to_string(linie[i].getCapacity()) +
+						"\nUpgrade capacity: "
+						+ std::to_string(linie[i].getCapacity()) + "->" + std::to_string(size_t(linie[i].getCapacity() * 1.2)) +
+						", Lower cost: $"
+						+ std::to_string(linie[i].GetCost()) + "->" + std::to_string((linie[i].GetCost() > 0) ? (linie[i].GetCost() - 1) : 0);
+					cost = 100;
+					upgrade_id = i;
+					upgrade_type = 0;
+					upgrade = new UpgradeBox(window.mapPixelToCoords(sf::Vector2i(window.getSize().x * 0.5, 0), uiView), { 0, 0 }, font, up_str, &farms, linie[i].startNode, linie[i].endNode);
+					sf::sleep(sf::milliseconds(250));
+					return;
+				}
+		}
+	}
+	//linia
+	if (placeMode == 1 && newLine == nullptr) {
+		if (cost > cash) {
+			for (int i = 0; i < buildButtons.size(); i++)
+			{
+				buildButtons[i].ResetTx();
+				placeMode = 0;
+			}
+			return;
+		}
+		int tmp;
+		sf::Vector2f cp;
+		if ((tmp = HoverOverFarm(window, view, farms)) != -1)
+		{
+			newLine = new Line({ float(farms[tmp].getPosition().x), float(farms[tmp].getPosition().y) });
+			newLine->startNode = tmp;
+		}
+		else
+		{
+			if (linie.size() == 0) return;
+			cp = closestPointOnLine(farms[linie[0].startNode].getPosition(), farms[linie[0].endNode].getPosition(), MousePosView(window, view));
+			MemCP mem(-1, INFINITY, { 0,0 });
+			for (int i = 0; i < linie.size(); i++)
+			{
+				if (!CursorNearLine(linie[i], MousePosView(window, view), farms)) continue;
+				cp = closestPointOnLine(farms[linie[i].startNode].getPosition(), farms[linie[i].endNode].getPosition(), MousePosView(window, view));
+				if (dl(cp, MousePosView(window, view)) < mem.dist)
+				{
+					mem = MemCP(i, dl(cp, MousePosView(window, view)), cp);
+				}
+			}
+			if (mem.i == -1) return;
+			Node crossroad(mem.pos);
+			crossroad.setTexture(&tx_cross);
+			farms.push_back(crossroad);
+			newLine = new Line(crossroad.getPosition());
+			newLine->startNode = farms.size() - 1;
+			newLine->startLine = mem.i;
+			newLine->L2L = true;
+		}
+	}
+	else if (placeMode == 1 && newLine != nullptr)
+	{			//sf::sleep(sf::milliseconds(100));
+		newLine->Reset();
+		newLine->FollowMouse(MousePosView(window, view));
+		int tmp = HoverOverFarm(window, view, farms, (int)newLine->startNode);
+
+		if (tmp != -1)
+		{
+			newLine->ConnectToNode(farms, tmp);
+		}
+		if (tmp == -1 && !(newLine->SnapToLine(linie, farms, MousePosView(window, view))))
+		{
+			newLine->CanPlace = true;
+			newLine->freePlace = true;
+		}
+
+		if (newLine->CanPlace)
+		{
+			if (newLine->freePlace) {
+				Node tmp_n = Node(newLine->getPosEnd());
+				if (checkIntersection(linie, tmp_n, farms))
+				{
+					newLine->SetRed();
+					newLine->CanPlace = false;
+				}
+
+			}
+
+			if (checkIntersection(linie, *newLine, farms))
+			{
+				newLine->SetRed();
+				newLine->CanPlace = false;
+			}
+		}
+		// std::cout << "Creating line with start node: " << linia.startNode << std::endl; // Debugging line
+
+	}
+
+
+
+	if (placeMode > 1 && newNode == nullptr)
+	{
+		newNode = new Node(window, placeType);
+		switch (placeMode)
+		{
+		case 2:
+			newNode->setTexture(&tx_farm);
+			break;
+		case 3:
+			newNode->setTexture(&tx_ale);
+			break;
+		case 4:
+			newNode->setTexture(&tx_tav);
+			break;
+		default:
+			break;
+		}
+	}
+	if (placeMode > 1 && newNode != nullptr)
+	{
+		newNode->setPosition(MousePosView(window, view));
+		if (checkIntersection(linie, *newNode, farms))
+		{
+			newNode->setFillColor(sf::Color(255, 0, 0, 160));
+			newNode->canPlace = false;
+		}
+		else
+		{
+			newNode->canPlace = true;
+			newNode->setFillColor(sf::Color(155, 255, 58));
+			if (newNode->type == NodeType::Farm)
+			{
+				bool fertile = false;
+				for (int i = 0; i < convexes.size(); i++)
+				{
+					if (convexes[i].Contains(newNode->getPosition()))
+					{
+						std::cout << "Farm placed inside convex hull." << std::endl;
+						newNode->setFillColor(sf::Color::Green);
+						fertile = true;
+						break;
+					}
+				}
+				newNode->setFertile(fertile);
+			}
+
+		}
+	}
+	//sf::sleep(sf::milliseconds(100));
+
 }
 
 void Game::handleKeyboardInput() {
@@ -564,7 +600,6 @@ void Game::handleKeyboardInput() {
 		window.close();
 	}
 }
-
 void Game::SaveGame()
 {
 	std::ostringstream oss;
@@ -583,7 +618,7 @@ void Game::SaveGame()
 	for (size_t i = 0; i < farms.size(); i++)
 	{
 		Node& node = farms[i];
-		oss << std::endl << node.getPosition().x << " " << node.getPosition().y << " " << node.getCapacity();
+		oss << std::endl << node.getPosition().x << " " << node.getPosition().y << " " << node.getCapacity() << " " << node.getUsed();
 		if (node.type == NodeType::Farm) {
 			oss << " F";
 		}
@@ -601,20 +636,20 @@ void Game::SaveGame()
 	for (size_t i = 0; i < linie.size(); i++)
 	{
 		Line& line = linie[i];
-		oss << std::endl << line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost();
+		std::pair<size_t, size_t> used = line.getUsed();
+		oss << std::endl << line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost() << " " << used.first << " " << used.second;
 	}
 	oss << std::endl << turn;
 	oss << std::endl << cash;
 	oss << std::endl << quota;
 	oss << std::endl << stats;
-	
+
 
 	std::string gameData = oss.str();
 	compressString(gameData, "save.txt");
 
 	std::cout << "Game saved successfully (compressed)." << std::endl;
 }
-
 void Game::LoadGame()
 {
 	std::string decompressedData = decompressString("save.txt");
@@ -642,9 +677,9 @@ void Game::LoadGame()
 		farms.clear();
 		for (size_t i = 0; i < farmCount; i++) {
 			sf::Vector2f pos;
-			size_t capacity;
+			size_t capacity, used;
 			char typeChar;
-			file >> pos.x >> pos.y >> capacity >> typeChar;
+			file >> pos.x >> pos.y >> capacity >> used >> typeChar;
 			Node node(window);
 			switch (typeChar)
 			{
@@ -667,6 +702,7 @@ void Game::LoadGame()
 			}
 			node.setPosition(pos);
 			node.setCapacity(capacity);
+			node.setUsed(used);
 			node.setFillColor(sf::Color::White);
 			farms.push_back(node);
 		}
@@ -677,11 +713,13 @@ void Game::LoadGame()
 		for (size_t i = 0; i < lineCount; i++) {
 			size_t startNode, endNode;
 			size_t capacity, cost;
-			file >> startNode >> endNode >> capacity >> cost;
+			std::pair<size_t, size_t> used;
+			file >> startNode >> endNode >> capacity >> cost >> used.first >> used.second;
 			Line line(farms[startNode].getPosition());
 			line.ConnectToNode(farms, startNode, endNode);
 			line.setCapacity(capacity);
 			line.SetCost(cost);
+			line.setUsed(used);
 			line.setFillColor(sf::Color(255, 255, 255, 255));
 			line.startNode = startNode;
 			line.endNode = endNode;
@@ -709,11 +747,39 @@ void Game::LoadGame()
 		cash_txt.TextUpdate("Bank: $" + std::to_string(cash));
 		ale_txt.TextUpdate("Quota: " + std::to_string(quota) + " barrels");
 	}
-}
+} // hufman
 
 bool Game::ButtonHandler()
 {
-	if (buildButtons[0].isMouseOver(MousePosView(window, view)))
+	if (statsButton.isMouseOver(MousePosView(window, uiView)))
+	{
+		if (stats.empty())
+		{
+			sf::sleep(sf::milliseconds(250));
+			return true;
+		}
+		/*convexes.push_back(Convex(all));*/
+		if (statsBox == nullptr)
+			statsBox = new TextBox({ 0,0 }, { 0,0 }, font, stats);
+		else
+		{
+			input = ""; // Clear the input string
+			delete statsBox;
+			statsBox = nullptr; // Clear the stats box
+		}
+		sf::sleep(sf::milliseconds(250));
+		return true;
+
+	}
+	if (endButton.isMouseOver(MousePosView(window, uiView)))
+	{
+		endGame = true; // Set the flag to end the game
+		return true;
+
+	}
+	if (lost == true)
+		return true;
+	if (buildButtons[0].isMouseOver(MousePosView(window, uiView)))
 	{
 		if (placeMode == 1)
 			placeMode = 0; // Switch back to no placement mode
@@ -738,7 +804,7 @@ bool Game::ButtonHandler()
 		return true;
 	}
 
-	if (buildButtons[1].isMouseOver(MousePosView(window, view)))
+	if (buildButtons[1].isMouseOver(MousePosView(window, uiView)))
 	{
 		if (placeMode == 2)
 		{
@@ -765,7 +831,7 @@ bool Game::ButtonHandler()
 		return true;
 
 	}
-	if (buildButtons[2].isMouseOver(MousePosView(window, view)))
+	if (buildButtons[2].isMouseOver(MousePosView(window, uiView)))
 	{
 		if (placeMode == 3)
 		{
@@ -792,7 +858,7 @@ bool Game::ButtonHandler()
 
 		return true;
 	}
-	if (buildButtons[3].isMouseOver(MousePosView(window, view)))
+	if (buildButtons[3].isMouseOver(MousePosView(window, uiView)))
 	{
 		if (placeMode == 4)
 		{
@@ -820,7 +886,7 @@ bool Game::ButtonHandler()
 		return true;
 
 	}
-	if (saveButton.isMouseOver(MousePosView(window, view)))
+	if (saveButton.isMouseOver(MousePosView(window, uiView)))
 	{
 		SaveGame();
 		saveButton.setFillColor(sf::Color::Green);
@@ -829,7 +895,7 @@ bool Game::ButtonHandler()
 
 	}
 
-	if (turnButton.isMouseOver(MousePosView(window, view)))
+	if (turnButton.isMouseOver(MousePosView(window, uiView)))
 	{
 		//for (int i = 0; i < farms.size(); i++)
 		//	farms[i].capacity = 50; // Reset used capacity for all farms
@@ -846,28 +912,9 @@ bool Game::ButtonHandler()
 		sf::sleep(sf::milliseconds(250));
 		return true;
 	}
-	if (statsButton.isMouseOver(MousePosView(window, view)))
-	{
-		if (stats.empty())
-		{
-			sf::sleep(sf::milliseconds(250));
-			return true;
-		}
-		/*convexes.push_back(Convex(all));*/
-		if (statsBox == nullptr)
-			statsBox = new TextBox({ 0,0 }, { 0,0 }, font, stats);
-		else
-		{
-			input = ""; // Clear the input string
-			delete statsBox;
-			statsBox = nullptr; // Clear the stats box
-		}
-		sf::sleep(sf::milliseconds(250));
-		return true;
-
-	}
+	
 	if (upgrade != nullptr) {
-		if (upgrade->upgradeButton.isMouseOver(MousePosView(window, uiView)) && cash>=cost)
+		if (upgrade->upgradeButton.isMouseOver(MousePosView(window, uiView)) && cash >= cost)
 		{
 			if (upgrade_type == 0) {
 				Line& line = linie[upgrade_id];
@@ -902,7 +949,7 @@ void Game::TurnEnd()
 {
 	FlowAlgorithm flow(farms.size());
 	flow.MakeGraph(linie, farms);
-	flow.printGraph();
+	//flow.printGraph();
 	std::pair<size_t, size_t> delivery = flow.Calculate();
 	if (delivery.first == 0)
 	{
@@ -913,9 +960,10 @@ void Game::TurnEnd()
 		message->setOutlineThickness(2);
 		return;
 	}
-	
+
 	if (delivery.first < quota)
 	{
+		lost = true;
 		message = new Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), view), { 400,400 }, font, "You haven't delivered your quota.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!");
 		message->text2->setOutlineThickness(4);
 		message->TextUpdate("You haven't fulfilled your quota.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!", true, true, 29);
@@ -926,10 +974,11 @@ void Game::TurnEnd()
 		return; // Not enough ale delivered
 	}
 	long long tmp_cash = cash; // Temporary cash to check for bankruptcy;
-	tmp_cash += delivery.first * 11;
+	tmp_cash += delivery.first * 9;
 	tmp_cash -= delivery.second;
-	if (tmp_cash< 0)
+	if (tmp_cash < 0)
 	{
+		lost = true;
 		cash_txt.TextUpdate("Bank: $" + std::to_string(tmp_cash));
 		message = new Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), view), { 400,400 }, font, "You bankrupted the city.\n The residents consider you unfit to hold the office of mayor.\nYou're fired!");
 		message->text2->setOutlineThickness(4);
@@ -951,7 +1000,7 @@ void Game::TurnEnd()
 		message->setFillColor(sf::Color::Blue);
 		message->SetPosAll(message->getPosition() - message->getSize() / 2.0f);
 	}
-	
+
 	turn++;
 	cash = tmp_cash;
 	quota *= 1.35;
@@ -994,7 +1043,7 @@ void Game::TurnEnd()
 		"\nTurn: " + std::to_string(turn) + " Max Tavern: " + std::to_string(max_tavern) +
 		"\nTurn: " + std::to_string(turn) + " Total Delivery: " + std::to_string(delivery.first) +
 		"\nTurn: " + std::to_string(turn) + " Total Cost: " + std::to_string(delivery.second);
-	printUsed();
+	//printUsed();
 	if (turn % 5 == 0)
 	{
 		UpdateAll();
@@ -1020,3 +1069,133 @@ void Game::printUsed()
 			"\n\tfrom " << used.second << "/" << linie[i].getCapacity() << std::endl;
 	}
 }
+//
+//void Game::SaveGame()
+//{
+//	std::ofstream file("save.txt");
+//	if (file.is_open()) {
+//		file << convexes.size();
+//		for (size_t i = 0; i < convexes.size(); i++)
+//		{
+//			Convex& convex = convexes[i];
+//			file << std::endl << convex.getPosition().x << " " << convex.getPosition().y << " ";
+//			file << convex.getPointCount() << " ";
+//			for (size_t j = 0; j < convex.getPointCount(); j++) {
+//				const auto& point = convex.getPoint(j);
+//				file << point.x << " " << point.y << " ";
+//			}
+//		}
+//		file << std::endl << farms.size();
+//		for (size_t i = 0; i < farms.size(); i++)
+//		{
+//			Node& node = farms[i];
+//			file << std::endl << node.getPosition().x << " " << node.getPosition().y << " " << node.getCapacity();
+//			if (node.type == NodeType::Farm) {
+//				file << " F";
+//			}
+//			else if (node.type == NodeType::Tavern) {
+//				file << " T";
+//			}
+//			else if (node.type == NodeType::Alehouse) {
+//				file << " A";
+//			}
+//			else {
+//				file << " C"; // Crossroad
+//			}
+//		}
+//		file << std::endl << linie.size();
+//		for (size_t i = 0; i < linie.size(); i++)
+//		{
+//			Line& line = linie[i];
+//			file << std::endl << line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost();
+//		}
+//		file << std::endl << turn;
+//		file << std::endl << stats;
+//		file.close();
+//		std::cout << "Game saved successfully." << std::endl;
+//	}
+//
+//}
+//
+//void Game::LoadGame()
+//{
+//	std::ifstream file("save.txt");
+//	if (file.is_open()) {
+//		size_t convexCount;
+//		file >> convexCount;
+//		convexes.clear();
+//		for (size_t i = 0; i < convexCount; i++) {
+//			sf::Vector2f pos;
+//			file >> pos.x >> pos.y;
+//			size_t pointCount;
+//			file >> pointCount;
+//			std::vector<sf::Vector2f> points;
+//			for (size_t j = 0; j < pointCount; j++) {
+//				sf::Vector2f point;
+//				file >> point.x >> point.y;
+//				points.push_back(point);
+//			}
+//			convexes.push_back(Convex(pos, points));
+//		}
+//		size_t farmCount;
+//		file >> farmCount;
+//		farms.clear();
+//		for (size_t i = 0; i < farmCount; i++) {
+//			sf::Vector2f pos;
+//			size_t capacity;
+//			char typeChar;
+//			file >> pos.x >> pos.y >> capacity >> typeChar;
+//			Node node(window);
+//			switch (typeChar)
+//			{
+//			case 'F':
+//				node.setType(NodeType::Farm);
+//				node.setTexture(&tx_farm);
+//				break;
+//			case 'T':
+//				node.setType(NodeType::Tavern);
+//				node.setTexture(&tx_tav);
+//
+//				break;
+//			case 'A':
+//				node.setType(NodeType::Alehouse);
+//				node.setTexture(&tx_ale);
+//				break;
+//			case 'C':
+//				node = Node(pos); // Crossroad
+//				node.setTexture(&tx_cross);
+//				break;
+//			}
+//			node.setPosition(pos);
+//			node.setCapacity(capacity);
+//			farms.push_back(node);
+//		}
+//		size_t lineCount;
+//		file >> lineCount;
+//		linie.clear();
+//		for (size_t i = 0; i < lineCount; i++) {
+//			size_t startNode, endNode;
+//			size_t capacity, cost;
+//			file >> startNode >> endNode >> capacity >> cost;
+//			Line line(farms[startNode].getPosition());
+//			line.ConnectToNode(farms, startNode, endNode);
+//			line.setCapacity(capacity);
+//			line.SetCost(cost);
+//			line.setFillColor(sf::Color(255, 255, 255, 255));
+//			line.startNode = startNode;
+//			line.endNode = endNode;
+//			line.setTexture(&tx_road);
+//			linie.push_back(line);
+//		}
+//		file >> turn;
+//		while (!file.eof())
+//		{
+//			std::string s;
+//			std::getline(file, s);
+//			stats += s + '\n';
+//		}
+//		stats[stats.size() - 1] = '\0'; // Remove last newline character
+//		file.close();
+//		std::cout << "Game loaded successfully." << std::endl;
+//	}
+//}

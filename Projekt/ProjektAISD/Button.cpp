@@ -29,7 +29,7 @@ Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string st
 	text2->setPosition(getPosition() + getSize() * 0.5f);
 
 }
-Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, sf::Texture& tx, sf::Texture& c_tx)
+Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, std::string str2, sf::Texture& tx, sf::Texture& c_tx)
 {
 	this->setOrigin(size / 2.0f);
 	this->setSize(size);
@@ -43,13 +43,23 @@ Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string st
 	button_tx = tx;
 	cancel_tx = c_tx;
 
-	text2 = new sf::Text(ft, str, 24);
+	text2 = new sf::Text(ft, str, 18);
 	text2->setFillColor(sf::Color::White);
 	text2->setStyle(sf::Text::Bold);
 	text2->setOutlineColor(sf::Color::Black);
-	text2->setOutlineThickness(3);
+	text2->setOutlineThickness(2);
 	text2->setOrigin({ text2->getGlobalBounds().size.x / 2, text2->getGlobalBounds().size.y / 2 });
-	text2->setPosition(getPosition() + sf::Vector2f{ 0,getSize().y });
+	text2->setPosition(getPosition() + sf::Vector2f{ 0,getSize().y/2 });
+	if(!str2.empty()){
+		text = new sf::Text(ft, str2, 18);
+		text->setFillColor(sf::Color::White);
+		text->setStyle(sf::Text::Bold);
+		text->setOutlineColor(sf::Color::Black);
+		text->setOutlineThickness(2);
+		text->setOrigin(text->getGlobalBounds().size / 2.0f);
+		text->setPosition(text2->getPosition() + sf::Vector2f(0, text2->getGlobalBounds().size.y));
+	}
+
 }
 
 
@@ -131,6 +141,8 @@ void Button::draw(sf::RenderWindow& w, sf::View& v)
 	w.draw(*this);
 	if (text2 != nullptr)
 		w.draw(*text2);
+	if (text != nullptr)
+		w.draw(*text);
 }
 
 TextBox::TextBox(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str)
@@ -214,16 +226,28 @@ UpgradeBox::~UpgradeBox()
 	std::cout << "UpgradeBox destroyed" << std::endl;
 }
 
-void UpgradeBox::draw(sf::RenderWindow& w, sf::View& v)
+void UpgradeBox::draw(sf::RenderWindow& w, sf::View& v, sf::View v2)
 {
 	upgradeButton.setFillColor(sf::Color(120, 255, 101));
 	upgradeButton.draw(w, v);
 	if (node1 != nullptr)
 	{
-		node1->draw(w, v);
+		node1->draw(w, v2);
 	}
 	if (node2 != nullptr)
 	{
-		node2->draw(w, v);
+		node2->draw(w, v2);
+	}
+}
+
+void UpgradeBox::move(sf::Vector2f offset)
+{
+	if (node1 != nullptr) {
+		node1->move(offset);
+		node1->text2->setPosition(node1->text2->getPosition()+offset);
+	}
+	if (node2 != nullptr) {
+		node2->move(offset);
+		node2->text2->setPosition(node2->text2->getPosition() + offset);
 	}
 }

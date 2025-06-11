@@ -14,9 +14,10 @@ class Button : public sf::RectangleShape
 	bool active = false;
 public:
 	sf::Text* text2 = nullptr;
+	sf::Text* text = nullptr;
 	Button();
 	Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str);
-	Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, sf::Texture& tx, sf::Texture& c_tx);
+	Button(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, std::string str2, sf::Texture& tx, sf::Texture& c_tx);
 	/*void setText(std::string str);
 	void setFont(sf::Font font);
 	void setSize(sf::Vector2f size);
@@ -51,7 +52,8 @@ struct UpgradeBox
 	UpgradeBox(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, std::vector<Node>* nodes, size_t id1, size_t id2);
 	UpgradeBox(sf::Vector2f pos, sf::Vector2f size, sf::Font& ft, std::string str, sf::Vector2f posR, sf::Vector2f sizeR);
 	~UpgradeBox();
-	void draw(sf::RenderWindow& w, sf::View& v);
+	void draw(sf::RenderWindow& w, sf::View& v, sf::View v2);
+	void move(sf::Vector2f offset);
 	//void SetPosAll(sf::Vector2f pos);
 };
 #endif// BUTTON_HPP

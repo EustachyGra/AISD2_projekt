@@ -40,6 +40,8 @@ private:
 	void render(sf::RectangleShape* obj = nullptr);
 
 	void handleMouseInput();
+	void LeftMouseClick();
+	void RightMouseClick();
 	void handleKeyboardInput();
 	void SaveGame();
 	void LoadGame();
@@ -55,13 +57,15 @@ private:
 	sf::Font font;
 	sf::Texture tx_farm, tx_tav, tx_cross, tx_ale, tx_road, tx_cancel, tx_save, tx_stats, tx_turn, tx_mob;
 	Button cash_txt, ale_txt;
-	Button statsButton, saveButton, turnButton;
+	Button statsButton, saveButton, turnButton, endButton;
+	bool endGame = false, lost = false;
 	Button *message = nullptr;
 	UpgradeBox* upgrade = nullptr; // Pointer to the upgrade box, if it exists
 	size_t upgrade_type=0,upgrade_id = 0;
 	std::vector<Button> buildButtons;
 	TextBox* statsBox = nullptr;
-	
+	Line* newLine = nullptr;
+	Node* newNode = nullptr;
 	long long cash = 2000; // Starting cash
 	size_t quota = 100,cost;
 	int placeMode = 0; // 0 - nic, 1 - road, 2 - farm, 3 - tavern, 4 - alehouse

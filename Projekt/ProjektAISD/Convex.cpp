@@ -104,8 +104,11 @@ Convex::Convex(std::vector<sf::Shape*>& all)
 	default:
 		break;
 	}
+	std::vector<sf::Vector2f> hull;
 	topLeft = { x, y };
-	std::vector<sf::Vector2f> hull = GrahamHull(MakePoints(topLeft));
+	do {
+		hull = GrahamHull(MakePoints(topLeft));
+	} while (hull.size() < 3);
 	this->setPosition(topLeft);
 	this->setOrigin({ 0, 0 });
 	this->setPointCount(hull.size());

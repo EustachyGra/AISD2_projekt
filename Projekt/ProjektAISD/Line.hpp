@@ -26,7 +26,7 @@ public:
     int CollideWith = -1;
     bool CanPlace = false;
     bool freePlace = false;
-
+    bool L2L = false;
     Line();
     Line(sf::Vector2f pos);
     Line(sf::RectangleShape x);
