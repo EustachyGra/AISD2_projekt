@@ -13,17 +13,20 @@ struct Edge { //dodatkowa struktura, bo zajmie mniej miejsca niz Line, a trzeba 
 	size_t to, rev; // to - do którego wierzcho³ka prowadzi krawêdŸ, rev - indeks krawedzi w liscie sasiedztwa
 	size_t cap;
 	long cost;
-	Edge(size_t to, size_t rev, size_t cap, long cost);
+	size_t mirEdge, mirIndx;
+	bool isPath;
+	Edge();
+	void setEdge(size_t to, size_t rev, size_t cap, long cost, bool isPath = false,size_t mirEdge=0, size_t mirIndx=0);
 };
 
 class FlowAlgorithm
 {
 private:
 	size_t n;
-	const size_t max = std::numeric_limits<size_t>::max();
+	static constexpr size_t max_size_t = (std::numeric_limits<size_t>::max)();
 	std::vector<std::vector<Edge>> graph;
 	std::vector<size_t> dist;
-	std::vector<size_t> parent, line;
+	std::vector<size_t> parent, line, used;
 	std::vector <size_t> potential;
 	size_t source, sink;
 public:
@@ -51,13 +54,14 @@ public:
 	/// <param name="v">Wierzcholek do ktorego dochodzi droga</param>
 	/// <param name="cap">Maksymalny przeplyw drogi</param>
 	/// <param name="cost">Koszt utrzymania drogi</param>
-	void AddEdge(size_t u, size_t v, size_t cap, long cost);
+	void AddEdgeBuilding(size_t u, size_t v, size_t cap, long cost);
+	void AddEdgeLine(size_t u, size_t v, size_t cap, long cost, size_t n);
 	/// <summary>
 	/// Wylicza maksymalny przep³yw i minimalny koszt przep³ywu w grafie.
 	/// </summary>
 	/// <returns>MaxFlow, MinCost</returns>
 	std::pair<size_t,size_t> Calculate();
-	
+	void CalculatePotential();
 	void printGraph();
 	size_t checkLine(size_t u, size_t v);
 	size_t checkBuilding(size_t u, size_t v);

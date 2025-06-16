@@ -340,35 +340,6 @@ void Game::handleMouseInput() {
 		}
 	}
 
-	//if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)) {
-	//	// Logika dla prawego przycisku myszy
-	//	 /*sf::Vector2f cr = MousePosView(window, view);
-	//		sf::sleep(sf::milliseconds(10));
-	//		sf::Vector2f mv = MousePosView(window, view) - cr;
-	//		for (int i = 0; i < all.size(); i++)
-	//		{
-	//			all[i]->move(sf::Vector2f(mv));
-	//		}
-	//		sf::sleep(sf::milliseconds(100));*/
-	//	for (int i = 0; i < linie.size(); i++)
-	//	{
-	//		if (linie[i].getGlobalBounds().contains(MousePosView(window, view)))
-	//		{
-	//			if (CursorNearLine(linie[i], MousePosView(window, view), farms))
-	//			{
-	//				size_t tmpC, tmpK;
-	//				std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << ": ";
-	//				std::cin >> tmpC >> tmpK;
-	//				linie[i].setCapacity(tmpC);
-	//				linie[i].SetCost(tmpK);
-	//			}
-	//		}
-	//	}
-	//	for (int i = 0; i < linie.size(); i++)
-	//	{
-	//		std::cout << "Line " << i << " (" << linie[i].startNode << "," << linie[i].endNode << "): " << linie[i].getCapacity() << ", " << linie[i].GetCost() << std::endl;
-	//	}
-	//}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
 		sf::Vector2f current = MousePosView(window, view);
 		if (!dragging) {
@@ -426,7 +397,7 @@ void Game::LeftMouseClick()
 						"\nUpgrade capacity: "
 						+ std::to_string(linie[i].getCapacity()) + "->" + std::to_string(size_t(linie[i].getCapacity() * 1.2)) +
 						", Lower cost: $"
-						+ std::to_string(linie[i].GetCost()) + "->" + std::to_string((linie[i].GetCost() > 0) ? (linie[i].GetCost() - 1) : 0);
+						+ std::to_string(linie[i].GetCost()) + "->" + std::to_string((linie[i].GetCost() > 1) ? (linie[i].GetCost() - 1) : 1);
 					cost = 100;
 					upgrade_id = i;
 					upgrade_type = 0;
@@ -919,7 +890,7 @@ bool Game::ButtonHandler()
 			if (upgrade_type == 0) {
 				Line& line = linie[upgrade_id];
 				line.setCapacity(size_t(line.getCapacity() * 1.2));
-				line.SetCost((line.GetCost() == 0) ? 0 : line.GetCost() - 1);
+				line.SetCost((line.GetCost() == 1) ? 1 : line.GetCost() - 1);
 			}
 			else
 			{
@@ -950,7 +921,9 @@ void Game::TurnEnd()
 	FlowAlgorithm flow(farms.size());
 	flow.MakeGraph(linie, farms);
 	//flow.printGraph();
+	flow.CalculatePotential();
 	std::pair<size_t, size_t> delivery = flow.Calculate();
+
 	if (delivery.first == 0)
 	{
 		message = new Button(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), view), { 0,0 }, font, "Build at least one delivery path.\n(Farma->Browar->Tawerna)");
@@ -1010,6 +983,12 @@ void Game::TurnEnd()
 		flowLine.first = flow.checkLine(linie[i].endNode, linie[i].startNode);
 		flowLine.second = flow.checkLine(linie[i].startNode, linie[i].endNode);
 		linie[i].setUsed(flowLine);
+		if(linie[i].getUsed().first > linie[i].getCapacity() || linie[i].getUsed().second > linie[i].getCapacity())
+		{
+			std::cout << "Warning: Line " << i << " from "<< linie[i].startNode << " to " << linie[i].endNode << "has used capacity exceeding its limit : " 
+				<< linie[i].getUsed().first << "/" << linie[i].getCapacity() << ", " 
+				<< linie[i].getUsed().second << "/" << linie[i].getCapacity() << std::endl;
+		}
 	}
 
 	// Update the cash text
@@ -1036,6 +1015,11 @@ void Game::TurnEnd()
 		{
 			node.setUsed(flow.checkBuilding(i, i + n));
 			max_ale += node.getCapacity();
+		}
+		if(node.getUsed() > node.getCapacity())
+		{
+			std::cout << "Warning: Node " << i << " has used capacity exceeding its limit : " 
+				<< node.getUsed() << "/" << node.getCapacity() << std::endl;
 		}
 	}
 	stats += "\nTurn: " + std::to_string(turn) + " Max Wheat: " + std::to_string(max_wheat) +
@@ -1069,133 +1053,5 @@ void Game::printUsed()
 			"\n\tfrom " << used.second << "/" << linie[i].getCapacity() << std::endl;
 	}
 }
-//
-//void Game::SaveGame()
-//{
-//	std::ofstream file("save.txt");
-//	if (file.is_open()) {
-//		file << convexes.size();
-//		for (size_t i = 0; i < convexes.size(); i++)
-//		{
-//			Convex& convex = convexes[i];
-//			file << std::endl << convex.getPosition().x << " " << convex.getPosition().y << " ";
-//			file << convex.getPointCount() << " ";
-//			for (size_t j = 0; j < convex.getPointCount(); j++) {
-//				const auto& point = convex.getPoint(j);
-//				file << point.x << " " << point.y << " ";
-//			}
-//		}
-//		file << std::endl << farms.size();
-//		for (size_t i = 0; i < farms.size(); i++)
-//		{
-//			Node& node = farms[i];
-//			file << std::endl << node.getPosition().x << " " << node.getPosition().y << " " << node.getCapacity();
-//			if (node.type == NodeType::Farm) {
-//				file << " F";
-//			}
-//			else if (node.type == NodeType::Tavern) {
-//				file << " T";
-//			}
-//			else if (node.type == NodeType::Alehouse) {
-//				file << " A";
-//			}
-//			else {
-//				file << " C"; // Crossroad
-//			}
-//		}
-//		file << std::endl << linie.size();
-//		for (size_t i = 0; i < linie.size(); i++)
-//		{
-//			Line& line = linie[i];
-//			file << std::endl << line.startNode << " " << line.endNode << " " << line.getCapacity() << " " << line.GetCost();
-//		}
-//		file << std::endl << turn;
-//		file << std::endl << stats;
-//		file.close();
-//		std::cout << "Game saved successfully." << std::endl;
-//	}
-//
-//}
-//
-//void Game::LoadGame()
-//{
-//	std::ifstream file("save.txt");
-//	if (file.is_open()) {
-//		size_t convexCount;
-//		file >> convexCount;
-//		convexes.clear();
-//		for (size_t i = 0; i < convexCount; i++) {
-//			sf::Vector2f pos;
-//			file >> pos.x >> pos.y;
-//			size_t pointCount;
-//			file >> pointCount;
-//			std::vector<sf::Vector2f> points;
-//			for (size_t j = 0; j < pointCount; j++) {
-//				sf::Vector2f point;
-//				file >> point.x >> point.y;
-//				points.push_back(point);
-//			}
-//			convexes.push_back(Convex(pos, points));
-//		}
-//		size_t farmCount;
-//		file >> farmCount;
-//		farms.clear();
-//		for (size_t i = 0; i < farmCount; i++) {
-//			sf::Vector2f pos;
-//			size_t capacity;
-//			char typeChar;
-//			file >> pos.x >> pos.y >> capacity >> typeChar;
-//			Node node(window);
-//			switch (typeChar)
-//			{
-//			case 'F':
-//				node.setType(NodeType::Farm);
-//				node.setTexture(&tx_farm);
-//				break;
-//			case 'T':
-//				node.setType(NodeType::Tavern);
-//				node.setTexture(&tx_tav);
-//
-//				break;
-//			case 'A':
-//				node.setType(NodeType::Alehouse);
-//				node.setTexture(&tx_ale);
-//				break;
-//			case 'C':
-//				node = Node(pos); // Crossroad
-//				node.setTexture(&tx_cross);
-//				break;
-//			}
-//			node.setPosition(pos);
-//			node.setCapacity(capacity);
-//			farms.push_back(node);
-//		}
-//		size_t lineCount;
-//		file >> lineCount;
-//		linie.clear();
-//		for (size_t i = 0; i < lineCount; i++) {
-//			size_t startNode, endNode;
-//			size_t capacity, cost;
-//			file >> startNode >> endNode >> capacity >> cost;
-//			Line line(farms[startNode].getPosition());
-//			line.ConnectToNode(farms, startNode, endNode);
-//			line.setCapacity(capacity);
-//			line.SetCost(cost);
-//			line.setFillColor(sf::Color(255, 255, 255, 255));
-//			line.startNode = startNode;
-//			line.endNode = endNode;
-//			line.setTexture(&tx_road);
-//			linie.push_back(line);
-//		}
-//		file >> turn;
-//		while (!file.eof())
-//		{
-//			std::string s;
-//			std::getline(file, s);
-//			stats += s + '\n';
-//		}
-//		stats[stats.size() - 1] = '\0'; // Remove last newline character
-//		file.close();
-//		std::cout << "Game loaded successfully." << std::endl;
-//	}
-//}
+
+

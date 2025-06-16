@@ -66,7 +66,7 @@ private:
 	TextBox* statsBox = nullptr;
 	Line* newLine = nullptr;
 	Node* newNode = nullptr;
-	long long cash = 2000; // Starting cash
+	long long cash = 1000000; // Starting cash
 	size_t quota = 100,cost;
 	int placeMode = 0; // 0 - nic, 1 - road, 2 - farm, 3 - tavern, 4 - alehouse
 	NodeType placeType = NodeType::Farm;

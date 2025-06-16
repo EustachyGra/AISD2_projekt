@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include "Game.hpp"
 #include "Menu.hpp"
 #include <iostream>
@@ -14,4 +15,7 @@ int main() {
 	Menu menu(window);
 	menu.run();
     return 0;
+}
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+    return main();
 }
