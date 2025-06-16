@@ -40,10 +40,10 @@ void FlowAlgorithm::AddEdgeLine(size_t u, size_t v, size_t cap, long cost, size_
 	graph[u + n].push_back(tmp);
 	graph[v + n].push_back(tmp);
 
-	graph[u].back().setEdge(v, graph[v].size() - 1, cap, cost, true, u + n, graph[u+n].size()-1); // krawedz orginalna
-	graph[v].back().setEdge(u, graph[u].size() - 1, 0, -cost, true, v + n, graph[v+n].size() - 1); // krawedz odwrtona dla grafu rezydualnego
-	graph[u + n].back().setEdge(v + n, graph[v + n].size() - 1, cap, cost, true,u, graph[u].size() - 1); // krawedz orginalna w drugiej warstwie
-	graph[v + n].back().setEdge(u + n, graph[u + n].size() - 1, 0, -cost, true, v,graph[v].size() - 1); // krawedz odwrtona dla grafu rezydualnego w drugiej warstwie
+	graph[u].back().setEdge(v, graph[v].size() - 1, cap, cost, true, u + n, graph[u + n].size() - 1); // krawedz orginalna
+	graph[v].back().setEdge(u, graph[u].size() - 1, 0, -cost, true, v + n, graph[v + n].size() - 1); // krawedz odwrtona dla grafu rezydualnego
+	graph[u + n].back().setEdge(v + n, graph[v + n].size() - 1, cap, cost, true, u, graph[u].size() - 1); // krawedz orginalna w drugiej warstwie
+	graph[v + n].back().setEdge(u + n, graph[u + n].size() - 1, 0, -cost, true, v, graph[v].size() - 1); // krawedz odwrtona dla grafu rezydualnego w drugiej warstwie
 }
 
 
@@ -104,7 +104,7 @@ std::pair<size_t, size_t> FlowAlgorithm::Calculate()
 			std::pair<size_t, size_t> tmp = pq.top();
 			size_t d = tmp.first;
 			size_t u = tmp.second;
-			if(u == sink) {
+			if (u == sink) {
 				break;
 			}
 			pq.pop();
@@ -150,17 +150,17 @@ std::pair<size_t, size_t> FlowAlgorithm::Calculate()
 			if (e.isPath)
 			{
 				Edge& mirEgde = graph[e.mirEdge][e.mirIndx]; // krawedz odwrotna w drugiej warstwie
-				size_t maxCap =std::min(e.cap, mirEgde.cap); // sprawdzamy maksymalny przeplyw na linii
+				size_t maxCap = std::min(e.cap, mirEgde.cap); // sprawdzamy maksymalny przeplyw na linii
 				if (parent[mirEgde.to] == e.mirEdge) // sprawdzamy czy krawedz odwrotna jest w sciezce
 				{
 					//std::cout << "Boht used " << e.cap << " " << flow;
-					flow = std::min(flow, std::max(size_t(maxCap/ 2), size_t(1))); // sprawdzamy przeplyw na krawedzi odwrotnej
+					flow = std::min(flow, std::max(size_t(maxCap / 2), size_t(1))); // sprawdzamy przeplyw na krawedzi odwrotnej
 					//std::cout << " " << flow << std::endl;
 					//sf::sleep(sf::milliseconds(250));
 				}
 				else
 				{
-				//	std::cout << "One used " << e.cap << " " << flow;
+					//	std::cout << "One used " << e.cap << " " << flow;
 					flow = std::min(flow, maxCap);
 					//std::cout << " " << flow << std::endl;
 
@@ -192,7 +192,7 @@ std::pair<size_t, size_t> FlowAlgorithm::Calculate()
 				mirEgde.cap = e.cap;
 				graph[mirEgde.to][mirEgde.rev].cap = graph[e.to][e.rev].cap;
 			}
-			
+
 			v = u;
 		}
 
@@ -230,12 +230,12 @@ void FlowAlgorithm::CalculatePotential()
 			}
 		}
 	}
-	for(int i = 0; i < potential.size(); i++) {
+	for (int i = 0; i < potential.size(); i++) {
 		if (potential[i] == max_size_t) {
 			potential[i] = 0; // jesli nie ma sciezki do wierzcholka to potencjal jest 0
 		}
 	}
-	
+
 }
 
 void FlowAlgorithm::printGraph() {
@@ -244,7 +244,7 @@ void FlowAlgorithm::printGraph() {
 			Edge& e = graph[i][j];
 			if (e.cap < 51)
 				continue;
-			sf::sleep(sf::milliseconds(50));
+			//sf::sleep(sf::milliseconds(50));
 			std::cout << i << " " << e.to << " " << e.cap << " " << e.cost << std::endl;
 
 		}
